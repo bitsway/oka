@@ -71,6 +71,11 @@
         <script>     
     	$(document).ready(function(){
 			$("#submit_type").val(localStorage.submit_type);
+			
+			$("#clientID_1_IM").val(localStorage.clientId);
+			$("#clientID_IM").val(localStorage.clientId);
+			$("#clientName_IM").val(localStorage.clientName);
+			
 			//$('#itemComboDiv_IM').empty();
 			//$('#itemComboDiv_IM').append(localStorage.itemComboIM).trigger('create');
 			//$("#selected_route").html(localStorage.selected_route);
@@ -82,6 +87,9 @@
 			$('#clientDiv_IM').html(localStorage.clientStr);
 			
 			set_item_combo_IM();
+			
+			
+			
 		});
 		
 		</script>	

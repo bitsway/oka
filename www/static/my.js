@@ -407,9 +407,13 @@ function getOrder() {
 				
 				
 				//Delivery IM
-				$("#clientID_1_IM").val(clientId);
-				$("#clientID_IM").val(clientId);
-				$("#clientName_IM").val(clientName);
+				localStorage.clientId=clientId
+				localStorage.clientName=clientName
+				
+				
+				$("#clientID_1_IM").val(localStorage.clientId);
+				$("#clientID_IM").val(localStorage.clientId);
+				$("#clientName_IM").val(localStorage.clientName);
 				//alert(clientArray);				
 				
 				
