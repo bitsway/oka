@@ -138,12 +138,12 @@ $('#basicSync').click(function() {
 							// ================end route================
 							$("#routeList").html(localStorage.routeList)
 							
-							$('#itemComboDiv_IM').empty();
-							$('#itemComboDiv_IM').append(localStorage.itemComboIM).trigger('create');
+							//$('#itemComboDiv_IM').empty();
+							//$('#itemComboDiv_IM').append(localStorage.itemComboIM).trigger('create');
 							
 							var url = "#pageSync";
 							 
-							location.reload();
+							
 							$.mobile.navigate(url);
 							$("#mySyncError").html("Authorization and basic data synchronized. Please Sync route.");
 							//$(location).attr('href',url);
@@ -188,6 +188,7 @@ $('#basicSync').click(function() {
 			var routeId=routeIdNameArray[0];
 			var routeName=routeIdNameArray[1];
 			
+			//localStorage.selected_route=routeId;
 			//$("#mySyncError_route").html(apipath+'syncClientSS?cid='+localStorage.cid+'&repid='+localStorage.userid+'&password='+localStorage.password+'&synccode='+localStorage.synccode+'&routeid='+routeId);
 			$.ajax({
 				 //http://127.0.0.1:8000/mreporting/sync_mobile/syncClientSS?cid=DELTA&repid=101&password=123&synccode=8943&routeid=BP33
@@ -432,6 +433,8 @@ function getOrder() {
 					$('#clientDiv_IM').empty();
 					$('#clientDiv_IM').append(clientStr).trigger('create');
 					
+					
+					localStorage.clientStr=clientStr;
 					//$('#delListDiv_IM').empty();
 //				    $('#delListDiv_IM').append(itemList).trigger('create');
 					
@@ -443,7 +446,7 @@ function getOrder() {
 					
 					var url = "#pageDeliveryIM";  
 					$.mobile.navigate(url);   
-					//location.reload();
+					location.reload();
 					
 					//$('#itemComboDiv_IM').empty();
 					//alert (localStorage.itemComboIM);
@@ -595,11 +598,9 @@ function orderSubmit() {
 }
 
 function pageEndNextClient() {
-			
 			clientList();
 			url = "#pageClient";	
-			$(location).attr('href',url);
-			
+			$.mobile.navigate(url);
 }
 
 //===================
@@ -630,6 +631,7 @@ function set_route_combo() {
 		}			
 	// ob.prepend("<option value="+ blank +">" + text + "</option>");						
 	  //create route list=========
+	
 }
 
 
@@ -658,7 +660,28 @@ function set_item_combo() {
 			
 }
 
-
+function set_item_combo_IM() {
+	// alert (localStorage.itemCombo.length);
+	var itemArray=localStorage.itemCombo.split('rtrt')	;
+	var ob = $("#itemCombo_IM");
+	// alert ('nadira')
+	$('#itemCombo_IM').empty()
+	
+	var value="";
+	var text="Select Item";
+	// ob.prepend("<option value="+ blank +">" + text + "</option>");
+	for (var i=0; i<itemArray.length-1; i++){
+		var itemIdNameArray = itemArray[i].split('-');
+		var item_id=itemIdNameArray[0]
+		var item_name=itemIdNameArray[1]
+		ob.append("<option value="+ item_id +">" + item_name +"(" +item_id +")" + "</option>");
+		// "<option value='"+ item_id +"'>" + item_name +"(" +item_id +")" + "</option>");
+		}			
+	// ob.prepend("<option value="+ blank +">" + text + "</option>");						
+	// var url = "#pageOrder";      
+	// $(location).attr('href',url);
+			
+}
 
 
 //==============client sync================
@@ -768,10 +791,10 @@ function addItemIM(){
 	//alert (itemID)
 	if ((itemID != 0) && (itemID != undefined) && (itemID != 'undefined')){
 		im_number= im_number+1;
-		$('#item_table').append('<tr id="'+im_number.toString()+'_row"><td>'+itemName+
+		$('#item_table').append('<tr id="'+im_number.toString()+'_row"><td style="color:#063">'+itemName+
 		'<input name="'+im_number.toString()+'_IMID" id="'+im_number.toString()+'_IMID"  value="'+itemID+'" type="hidden">'+
-		'<input name="'+im_number.toString()+'_item_name" id="'+im_number.toString()+'_item_name"  value="'+itemName+'" type="hidden">'+
-		'</td><td> <input name="'+im_number.toString()+'_IM" id="'+im_number.toString()+'_IM" placeholder="" value="" type="number"></td><td> <input name="'+im_number.toString()+'_IM_del" id="'+im_number.toString()+'_IM_del" type="button" onClick="deleteItem('+im_number+')" value="X"></td> </tr>');
+		'<input name="'+im_number.toString()+'_item_name" id="'+im_number.toString()+'_item_name"  value="'+itemName+'" type="hidden">'+		
+		'</td><td> <input style="height:25px; width:90%;color:#063;background-color:#E6F2FF; font-size:15px; font-weight:bold;border:thin; border-radius:5%;" name="'+im_number.toString()+'_IM" id="'+im_number.toString()+'_IM" placeholder="" value="" type="number"></td><td><input style="background-color:#B6DADA; color:#0AA; border:thin; border-radius:5%" name="'+im_number.toString()+'_IM_del" id="'+im_number.toString()+'_IM_del" type="button" onClick="deleteItem('+im_number+')" value="X"></td> </tr>');
 	}
 }
 
@@ -793,12 +816,15 @@ function confirmDeliveryIM(){
 		}
 	}
 	
-	
-	if (delivery_submit_string ==''){
-		$("#erro_IM").html ('Need IME' );
+	//alert (delivery_submit_string.length);
+	if (delivery_submit_string.length ==0){
+		$("#erro_IM").html ('Need IMEI' );
+		$('#sub_button_IM').hide();
+		$('#cnf_button_IM').show();
 		
 	}
 	else{
+		$("#erro_IM").hide ('');
 		$('#itm_IM').find('input, textarea, button, select').attr('disabled','disabled');
 		$('#submit_string_IM').val(delivery_submit_string);
 	
@@ -808,6 +834,7 @@ function confirmDeliveryIM(){
 		getLatLong();
 	}
 }
+
 function submitDeliveryIM(){
 	var submit_string_IM=$('#submit_string_IM').val();
 	var clientID_IM=$('#clientID_IM').val();
@@ -857,3 +884,8 @@ function submitDeliveryIM(){
 }
 
 //====================Delivery IM Item add End=================
+
+function go_home(){
+	$.mobile.navigate("#pageHome"); 
+	location.reload();
+}

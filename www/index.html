@@ -73,11 +73,18 @@
 			$("#submit_type").val(localStorage.submit_type);
 			//$('#itemComboDiv_IM').empty();
 			//$('#itemComboDiv_IM').append(localStorage.itemComboIM).trigger('create');
+			//$("#selected_route").html(localStorage.selected_route);
+			
+			//localStorage.itemComboIM
 			set_route_combo();
-			set_item_combo();
+			$('#itemComboDiv_IM').html(localStorage.itemComboIM);
+			
+			$('#clientDiv_IM').html(localStorage.clientStr);
+			
+			set_item_combo_IM();
 		});
 		
-	</script>	
+		</script>	
 	</head>
     <body>
 
@@ -88,7 +95,7 @@
     <div data-theme="c" data-role="page" id="pageHome">
         <div data-theme="c" data-role="header" data-position="fixed" >
             <a  data-role="button" href="#leftpanel3" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
-            <a data-role="button" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-power ui-btn-icon-notext"  onClick="exit()"></a>
+            <a data-role="button" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-power ui-btn-icon-notext"  onClick="exit();"></a>
             <h5>Okapia</h5>
         </div>
     <div data-role="content">
@@ -1221,7 +1228,7 @@
 		<div data-theme="c" data-role="page" id="pageSync">
         
             <div data-theme="c" data-role="header" data-position="fixed">
-              <a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>               
+              <a  data-role="button" onClick="go_home()" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>               
               <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
                 <h3>Authorization</h3>
             </div>
@@ -1232,8 +1239,9 @@
                     <li data-role="list-divider" role="heading">Authorization</li>
 				</ul>
 				<form>
+				<!--<input name="cid" id="cid"  type="text" placeholder="CID" value="DELTA" disabled="disabled">-->
 				<input name="cid" id="cid"  type="text" placeholder="CID" value="OKAPIA" disabled="disabled">	
-				<input name="repid" id="repid"  value="" type="text" placeholder="User ID">	
+				<input name="repid" id="repid"  value="" type="text" placeholder="User ID"  >	
 				<input type="password" name="" id="password"  value="" placeholder="Password">	
 				<input type="submit" id="basicSync" name="basicSync" value="Submit" >
 				</form>
@@ -1281,7 +1289,7 @@
 
             <div data-theme="c" data-role="header" data-position="fixed">
 
-				<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
+				<a  data-role="button"  onClick="go_home();" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
 
                 <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">
 
@@ -1463,7 +1471,9 @@
 	<!-- =================route list end====================-->
 
 			<br>
-            <input type="submit" id="routeSync" name="routeSync" value="Sync Route" >
+            
+			<div id="selected_route"></div>
+			<input type="submit" id="routeSync" name="routeSync" value="Sync Route" >
 
              
 
@@ -1683,9 +1693,9 @@
 
 					
 
-					
+					<br><br>
 
-                    <input type="submit" id="clientSync" name="clientSync" value="Next >" onClick="getOrder();refreshclientList();" >
+                    <input type="submit" id="clientSync" name="clientSync" value="Next" onClick="getOrder();refreshclientList();" >
 
                     <br><br><br><br><br><br><br><br><br><br>	
 
@@ -2134,31 +2144,22 @@
 
 		    <div data-theme="c" data-role="header">
 
-			<a  data-role="button" href="#leftpanel_voucher" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
+			<a  data-role="button" onClick="go_home();"  class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
 
 		        <h3>Success</h3>
 
 		    </div>
 
-	      <div data-role="content">
+	      <div data-role="content" >
 
-		  		<b>Submitted Successfully.</b>
+		  		Submitted Successfully.
 
-                <div id="successVno"></div>
+                <div id="successVno" ></div>
+<!--<a data-role="button" data-transition="slide" data-icon="arrow-l" data-iconpos="left"  onClick="clientList()" >New Order</a>-->
 
-				<ul>
+                    <a data-role="button" data-transition="slide" onClick="pageEndNextClient()" >Select New Outlet</a>	
 
-		    		<li>You Can Create New Order</li>
-
-                    <li>You Can Exit The Application</li>
-
-		    	</ul>
-
-					<!--<a data-role="button" data-transition="slide" data-icon="arrow-l" data-iconpos="left"  onClick="clientList()" >New Order</a>-->
-
-                    <a data-role="button" data-transition="slide" href="#pageClient" data-icon="arrow-r" data-iconpos="right"  onClick="pageEndNextClient()" >New</a>	
-
-                    <a data-role="button" data-transition="slide" href="#pageHome" data-icon="arrow-r" data-iconpos="right"  onClick="exit()" >Exit</a>		        	
+                    <!--<a data-role="button" data-transition="slide" onClick="exit()" >Exit</a>-->		        	
 
 		    </div>
 
@@ -2249,9 +2250,9 @@
                <div id="itm_IM" >    
                 <table id="item_table" width="100%" border="0" cellpadding="0">
                   <tr id="title_table" >
-                    <td width="50%">&nbsp;</td>
-                    <td width="30%">&nbsp;</td>
-                    <td>&nbsp;</td>
+                    <td width="20%">&nbsp;</td>
+                    <td >&nbsp;</td>
+                    <td width="5%">&nbsp;</td>
                   </tr>
                 </table>
 					</div>
@@ -2400,7 +2401,15 @@
 <div data-theme="c" data-role="footer" role="main"  data-position="fixed">
 
  <div id="combo_div">
- <div id="itemComboDiv_IM" style="float:left; margin-top:5px;"></div>
+ <div id="itemComboDiv_IM" style="float:left; margin-top:5px;">
+ 
+ <select id="itemCombo_IM" width="75%" data-native-menu="false">
+
+<option value="">Select Item</option>
+
+</select>
+ 
+ </div>
   <!--<span id="ordErrMsg_IM" style="color:#FF0000; float:left;"></span>-->
 	 <a  data-role="button" data-transition="slide" onClick="addItemIM()"  data-iconpos="right" class="ui-btn-right" >Add</a>
 	</div>
