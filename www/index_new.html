@@ -1,17 +1,14 @@
 <!DOCTYPE html>
-
 <!-- Designed and developed by Business Solution Apps team v -->
-
 <html>
-
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Okapia</title>
+        <title>UNILEVER</title>
+        
+
 		
-		
-		
-		<link rel="stylesheet" href="static/my.css"  />
+        <link rel="stylesheet" href="static/my.css"  />
 
         
 		<link rel="stylesheet" href="static/themes/c.min.css" />
@@ -57,28 +54,19 @@
 			margin-left: 15px;
 			
 		}
-		
-	
 		</style>
         
-        
-		
-		
-		
-		
-		
-		
-        <script>     
+     <script>     
     	$(document).ready(function(){
 			$("#submit_type").val(localStorage.submit_type);
-			//$('#itemComboDiv_IM').empty();
-			//$('#itemComboDiv_IM').append(localStorage.itemComboIM).trigger('create');
-			set_route_combo();
-			set_item_combo();
-		});
-		
-	</script>	
-	</head>
+			$('#itemComboDiv_IM').empty();
+			$('#itemComboDiv_IM').append(localStorage.itemComboIM).trigger('create');
+		});    
+	</script>   
+
+    </head>
+    
+
     <body>
 
 	<!--<div data-role="tabs" id="tabs">-->
@@ -87,16 +75,16 @@
 
     <div data-theme="c" data-role="page" id="pageHome">
         <div data-theme="c" data-role="header" data-position="fixed" >
-            <a  data-role="button" href="#leftpanel3" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
+            <a  data-role="button" href="#leftpanel3" class="ui-btn-left ui-btn-icon-notext"><img src="unilogo13.jpg"></a>
             <a data-role="button" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-power ui-btn-icon-notext"  onClick="exit()"></a>
-            <h5>Okapia</h5>
+            <h5>M-Reporting</h5>
         </div>
     <div data-role="content">
             <div id="myerror" style="color:#C00;"></div>
             <div data-role="fieldcontain">
                <!--<a data-role="button" data-transition="slide" onClick="clientList();set_submit_type_ord();" data-icon="arrow-r" data-iconpos="right" >Order</a>  
                <a data-role="button" data-transition="slide" onClick="clientList();set_submit_type_del();" data-icon="arrow-r" data-iconpos="right" >Delivery (classic)</a>-->
-               <a data-role="button" data-transition="slide" onClick="clientList();set_submit_type_del_im();"  >Delivery</a>
+               <a data-role="button" data-transition="slide" onClick="clientList();set_submit_type_del_im();" data-icon="arrow-r" data-iconpos="right" >Delivery</a>
               <!-- <a data-role="button" data-transition="slide" href="#delivery" data-icon="arrow-r" data-iconpos="right" >Delivery Confirmation</a>
                <a data-role="button" data-transition="slide" href="#deliveryReturn" data-icon="arrow-r" data-iconpos="right" >Return</a>
                <a data-role="button" data-transition="slide"  href="#myTarget" data-icon="arrow-r" data-iconpos="right" >Target & Achivement </a>
@@ -104,17 +92,14 @@
                <a data-role="button" data-transition="slide"  href="#dcrPage" data-icon="arrow-r" data-iconpos="right" >DCR</a>
                <a data-role="button" data-transition="slide"  href="#report" data-icon="arrow-r" data-iconpos="right" >Report</a>
                <a data-role="button" data-transition="slide"  href="#feedback" data-icon="arrow-r" data-iconpos="right" >Feedback</a>-->
-               <a data-role="button" data-transition="slide"  href="#noticeBoard" >Notice Board</a>
+               <a data-role="button" data-transition="slide"  href="#noticeBoard" data-icon="arrow-r" data-iconpos="right" >Notice Board</a>
             </div>
     </div>
-    <div data-theme="c" data-role="footer" data-position="fixed" style="font-family:Arial, Helvetica, sans-serif; font-size:xx-small; color:#FFF; text-align:center">m-eporting 20140607 beta</div> 
+    <div data-theme="c" data-role="footer" data-position="fixed" style="font-family:Arial, Helvetica, sans-serif; font-size:xx-small; color:#FFF; text-align:center">M-Reporting-DEMO140203</div> 
     <!--panel start-->
     <div data-role="panel" id="leftpanel3" data-display="overlay" data-theme="c" >
         <br/>
-        <div align="center" style="font-family:Arial, Helvetica, sans-serif; font-size:20px; color:#036">
-        <img src="logo.png" />
-        <br>
-        M-REPORTING</div>
+        <div align="center" style="font-family:Arial, Helvetica, sans-serif; font-size:20px; color:#036">M-REPORTING</div>
         <br/><br/><br/><br/>
         <ul data-role="listview">
             <!--<li><a data-role="button" data-transition="slide" onClick="clientList();set_submit_type_ord();" data-icon="arrow-r" data-iconpos="right" >Order</a>   </li>
@@ -128,8 +113,8 @@
             <li><a href="#" onClick="add_theme('bl')">Theme 2</a></li>
         </ul>-->
     
-        <div style="height:100%;"></div></br></br></br></br>
-        <div align="center" style="color:#DDD" ><!--<img src="logo_gp.png" alt="Grameen Phone" />--> Powered by </br>Grameen Phone</div>
+        <div style="height:100%;"></div>
+        <div align="center" ><img src="logo_gp.png" alt="Grameen Phone" /></div>
       </div>           
     <!--panel end-->
     </div><!---------/page-->  
@@ -138,7 +123,7 @@
  <!--=====================delivery Page==================-->
     <div data-theme="c" data-role="page" id="delivery">    
         <div data-theme="c" data-role="header" data-position="fixed">       
-            <a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>            
+            <a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="unilogo13.jpg"></a>            
             <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>          
             <h3>Delivery</h3>
         </div>
@@ -170,7 +155,7 @@
 <!--=====================delivery ==================-->
     <div data-theme="c" data-role="page" id="deliveryWokapia">    
         <div data-theme="c" data-role="header" data-position="fixed">       
-            <a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>            
+            <a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="unilogo13.jpg"></a>            
             <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>          
             <h3>Delivery</h3>
         </div>
@@ -203,7 +188,7 @@
 
     <div data-theme="c" data-role="page" id="deliveryReturn">
         <div data-theme="c" data-role="header" data-position="fixed">
-            <a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
+            <a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="unilogo13.jpg"></a>
             <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
             <h3>Return</h3>
         </div>
@@ -248,7 +233,7 @@
 	 <!--=====================target Page==================-->
     <div data-theme="c" data-role="page" id="myTarget">
         <div data-theme="c" data-role="header" data-position="fixed">
-            <a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
+            <a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="unilogo13.jpg"></a>
             <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
             <h3>Target</h3>
         </div>
@@ -269,7 +254,7 @@
  <!--=====================target remain Page==================-->
     <div data-theme="c" data-role="page" id="target_remain">
         <div data-theme="c" data-role="header" data-position="fixed">
-            <a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
+            <a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="unilogo13.jpg"></a>
             <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
             <h3>Target Remain</h3>
         </div>
@@ -404,7 +389,7 @@
 
             <div data-theme="c" data-role="header" data-position="fixed">
 
-               <a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
+               <a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="unilogo13.jpg"></a>
 
             <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
 
@@ -548,7 +533,7 @@
 
             <div data-theme="c" data-role="header" data-position="fixed">
 
-			<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
+			<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="unilogo13.jpg"></a>
 
             <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
 
@@ -692,7 +677,7 @@
 
             <div data-theme="c" data-role="header" data-position="fixed">
 
-			<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
+			<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="unilogo13.jpg"></a>
 
             <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
 
@@ -786,7 +771,7 @@
 
             <div data-theme="c" data-role="header" data-position="fixed">
 
-			<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
+			<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="unilogo13.jpg"></a>
 
             <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
 
@@ -1024,7 +1009,7 @@
 
             <div data-theme="c" data-role="header" data-position="fixed">
 
-			<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
+			<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="unilogo13.jpg"></a>
 
             <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
 
@@ -1074,7 +1059,7 @@
 
             <div data-theme="c" data-role="header" data-position="fixed">
 
-			<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
+			<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="unilogo13.jpg"></a>
 
             <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
 
@@ -1170,7 +1155,7 @@
 
             <div data-theme="c" data-role="header" data-position="fixed">
 
-			<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
+			<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="unilogo13.jpg"></a>
 
             <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
 
@@ -1221,13 +1206,13 @@
 		<div data-theme="c" data-role="page" id="pageSync">
         
             <div data-theme="c" data-role="header" data-position="fixed">
-              <a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>               
+              <a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="unilogo13.jpg"></a>               
               <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
                 <h3>Authorization</h3>
             </div>
 
             <div data-role="content">
-            	<div id="mySyncError" style="color:#033; font-size:9px"></div>
+            	<div id="mySyncError" style="color:#03C"></div>
 				<ul data-role="listview" data-divider-theme="c" data-inset="true">
                     <li data-role="list-divider" role="heading">Authorization</li>
 				</ul>
@@ -1281,7 +1266,7 @@
 
             <div data-theme="c" data-role="header" data-position="fixed">
 
-				<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
+				<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="unilogo13.jpg"></a>
 
                 <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">
 
@@ -1289,7 +1274,7 @@
 
 					</a>
 
-                <h3>Route</h3>
+                <h3>Select Route</h3>
 
             </div>
 
@@ -1297,7 +1282,7 @@
 
             <div data-role="content">
 
-            	<div id="mySyncError_route" style="color:#033; font-size:9px"></div>
+            	<div id="mySyncError_route" style="color:#03C"></div>
 
                 
 
@@ -1462,14 +1447,13 @@
 
 	<!-- =================route list end====================-->
 
-			<br>
-            <input type="submit" id="routeSync" name="routeSync" value="Sync Route" >
+			<input type="submit" id="routeSync" name="routeSync" value="Select" >
 
              
 
                  
 
-                <br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br>
 
                        
 
@@ -1551,7 +1535,7 @@
 
             <div data-theme="c" data-role="header" data-position="fixed">
 
-				<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
+				<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="unilogo13.jpg"></a>
 
                 <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
 
@@ -1755,7 +1739,7 @@
 
 				<div data-theme="c" data-role="header" data-position="fixed">
 
-					<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
+					<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="unilogo13.jpg"></a>
 
 					<a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">
 
@@ -2050,7 +2034,7 @@
 
 				<div data-theme="c" data-role="header">
 
-					<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
+					<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="unilogo13.jpg"></a>
 
 					<a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">
 
@@ -2134,7 +2118,7 @@
 
 		    <div data-theme="c" data-role="header">
 
-			<a  data-role="button" href="#leftpanel_voucher" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
+			<a  data-role="button" href="#leftpanel_voucher" class="ui-btn-left ui-btn-icon-notext"><img src="unilogo13.jpg"></a>
 
 		        <h3>Success</h3>
 
@@ -2229,7 +2213,7 @@
 
 				<div data-theme="c" data-role="header" data-position="fixed">
 
-					<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="okapia.png"></a>
+					<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="unilogo13.jpg"></a>
 
 					<a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">
 
@@ -2237,7 +2221,7 @@
 
 					</a>
 
-					<h3>Delivery</h3> <!--for okapia-->
+					<h3>Delivery IM</h3>
 
 				</div>
 
@@ -2255,9 +2239,9 @@
                   </tr>
                 </table>
 					</div>
-                    <a id="cnf_button_IM"  data-role="button" data-transition="slide" onClick="confirmDeliveryIM()">Confirm</a>
+                    <a id="cnf_button_IM"  data-role="button" data-transition="slide" onClick="confirmDeliveryIM()" data-icon="arrow-r" data-iconpos="right">Confirm</a>
                     
-                    <a id="sub_button_IM" style="display:none"  data-role="button" data-transition="slide" onClick="submitDeliveryIM()" >Submit</a>
+                    <a id="sub_button_IM" style="display:none"  data-role="button" data-transition="slide" onClick="submitDeliveryIM()" data-icon="arrow-r" data-iconpos="right">Submit</a>
                     <div id="itemCountDiv_IM">	</div>
 
 <!-- =================item list start====================-->
@@ -2397,7 +2381,7 @@
                 <input name="submit_string_IM" id="submit_string_IM" placeholder="" value="" type="hidden">
                
 		   	<!--==========footer======-->	
-<div data-theme="c" data-role="footer" role="main"  data-position="fixed">
+<div data-theme="a" data-role="footer" role="main" style="font-size:12px;background-color:#CCC; color:#E1E1E1;" data-position="fixed">
 
  <div id="combo_div">
  <div id="itemComboDiv_IM" style="float:left; margin-top:5px;"></div>
@@ -2429,5 +2413,4 @@
 
 
     </body>
-
 </html>
