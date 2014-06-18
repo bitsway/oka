@@ -35,8 +35,9 @@ function onSuccess(position) {
 //var apipath='http://127.0.0.1:8000/mreporting/sync_mobile/';
 //var dmpathUrl= "http://localhost/dmpath/index.php?CID=";
 //var apipath='http://127.0.0.1:8000/mreporting/';
-//var apipath=location.protocol + "//" + location.hostname + (location.port && ":" + location.port) + "/mrepmobile/mrep_order_new/";
-var apipath="http://m.businesssolutionapps.com/mrepmobile/mrep_order_new/";
+//var apipath=location.protocol + "//" + location.hostname + (location.port && ":" + location.port) + "/okapia/mrep_okapia/";
+var apipath="http://m.businesssolutionapps.com/mrepmobile/mrep_okapia/";
+
 var cidValue=''
 var repid='';
 var password='';
@@ -60,17 +61,7 @@ var delivery_str_IM="";
 $(function() {	
 	
 	
-	// $('#routeID').change(function() {
-		// alert ('nadira');
-        // // var nextpage = $(this).children('option:selected').attr('value');
-        // // $.mobile.changePage( nextpage + '.html' );
-    // });
-	/*$(document).ready(function(){
-	  $('#itemComboDiv').empty();
-	  $('#itemComboDiv').append(localStorage.itemCombo).trigger('create');
-	}); */
-	
-	
+
 $('#basicSync').click(function() {
 		localStorage.cid="";
 		localStorage.userid="";
@@ -95,7 +86,7 @@ $('#basicSync').click(function() {
 			
 		}else{
 			 //alert(apipath+'syncRepJMobileSS?cid='+cidValue+'&repid='+repid+'&mobile=8801234567890&password='+password);
-			// $("#mySyncError").html(apipath+'syncRepSS?cid='+cidValue+'&repid='+repid+'&mobile=8801234567890&password='+password) ;
+			//$("#mySyncError").html(apipath+'syncRepSS?cid='+cidValue+'&repid='+repid+'&mobile=8801234567890&password='+password) ;
 			 $.ajax({
 				 //http://127.0.0.1:8000/mreporting/sync_mobile/syncRepSS?cid=DELTA&repid=13073&mobile=8801234567890&password=123
 				 //url: apipath+'sync_mobile/syncRepSS?cid=DEMO&dpid='+mobile+'&mobile=8801234567890&password='+password,
@@ -107,16 +98,24 @@ $('#basicSync').click(function() {
 						}
 						var loginResultArray = loginResult.split('rdrd');			
 						if (loginResultArray[0]=='YES'){
-							
+							//alert (loginResult);
 							syncCode=loginResultArray[1];
 							routeListStr=loginResultArray[2];
 							itemListStr=loginResultArray[3];
 							dvCount=loginResultArray[4];
 							itemCombo=loginResultArray[5];
 							itemComboIM=loginResultArray[6];
+							ime_range=loginResultArray[7];
+							
+							//$("#mySyncError").html(ime_range);
+							//alert (ime_range);
+							ime_rangeArray = ime_range.split(',');	
+							ime_min=ime_rangeArray[0];
+							ime_max=ime_rangeArray[1];
 							
 							
-							//alert (loginResult);		
+							//alert (ime_min);	
+							//alert (ime_max);
 							localStorage.cid=cidValue;
 							localStorage.userid=repid;
 							localStorage.password=password;
@@ -126,6 +125,9 @@ $('#basicSync').click(function() {
 							localStorage.itemDivCount=dvCount;
 							localStorage.itemCombo=itemCombo;
 							localStorage.itemComboIM=itemComboIM
+							
+							localStorage.ime_min=ime_min
+							localStorage.ime_max=ime_max
 							
 							//alert (localStorage.itemCombo);
 							//$("#mySyncError").html(loginResult);
@@ -216,8 +218,8 @@ $('#basicSync').click(function() {
 							 $("#mySyncError_route").text("Route '"+localStorage.routeName+" ("+localStorage.routeId+" )' Synced Successfully");	
 							
 							
-							//$('#clientList').empty();
-							//$('#clientList').append(temp).trigger('create');
+							$('#clientList').empty();
+							$('#clientList').append(temp).trigger('create');
 							
 							$('#clientList').html(localStorage.clientListStr.toString());
 							
@@ -265,20 +267,7 @@ function getSyncPage() {
 	}
 
 
-//================== Clear Sync
-function clearSync() {
-	localStorage.cid="";
-	localStorage.userid="";
-	localStorage.password="";
-	localStorage.synccode="";
-	localStorage.routeList="";
-	localStorage.itemList="";
-	localStorage.itemDivCount="";
-	localStorage.routeId="";
-	localStorage.routeName="";
-	localStorage.clientListStr="";
-	localStorage.itemCombo="";
-}
+
 
 
 
@@ -286,112 +275,38 @@ function clearSync() {
 
 
 	
-	$('#clientSync').click(function() {
-		// atert ('nadira')
-		var clientIdName=$("#clientID").val();
-		//alert (clientIdName);
-		if (clientIdName=="" || clientIdName==undefined){
-			$("#mySyncError_client").html('Select Client');			
+$('#clientSync').click(function() {
+	// atert ('nadira')
+	var clientIdName=$("#clientID").val();
+	//alert (clientIdName);
+	if (clientIdName=="" || clientIdName==undefined){
+		$("#mySyncError_client").html('Select Client');			
+		
+		var url = "#pageClient";      
+		//$(location).attr('href',url);
+		$.mobile.navigate(url); 
+		//location.reload();
+	
+	}else{
+		$("#mySyncError_client").text("");
+		var clientIdNameArray = clientIdName.split('-');
+		var clientId=clientIdNameArray[0];
+		var clientName=clientIdNameArray[1];
+		
+		// getOrder(clientIdName)
+		
+		
+	}
+}); 
 			
-			var url = "#pageClient";      
-			//$(location).attr('href',url);
-			$.mobile.navigate(url); 
-		
-		}else{
-			$("#mySyncError_client").text("");
-			var clientIdNameArray = clientIdName.split('-');
-			var clientId=clientIdNameArray[0];
-			var clientName=clientIdNameArray[1];
-			
-			// getOrder(clientIdName)
-		}
-		}); 
-			
-
-
-//==============client sync end========
-
-
-function refreshclientList() {	
-	$('#clientID_S').empty();
-	
-	$("#clientSearch").val('');
-	var clientArray=localStorage.clientListStr.split('rtrt')	
-	var ob = $("#clientID_S");
-	var value="";
-	var text="Select Client";
-	// ob.prepend("<option value="+ blank +">" + text + "</option>");
-	
-	for (var c=0; c<clientArray.length-1; c++){
-		
-		var clientIdNameArray = clientArray[c].split('-');
-		
-		var client_id=clientIdNameArray[1]
-		 // alert (client_id);
-		var client_name=clientIdNameArray[0]
-		ob.prepend("<option value="+ client_name+'-'+client_id +">" + client_name +"(" +client_id +")" + "</option>");
-		}
-	
-	
-}
-//================== Client List
-function clientList() {	
-	
-	// ====================client combo==================			
-							
-				
-	$('#clientID_S').empty();
-	var clientArray=localStorage.clientListStr.split('rtrt')	
-	var ob = $("#clientID_S");
-	var value="";
-	var text="Select Client";
-	// ob.prepend("<option value="+ blank +">" + text + "</option>");
-	
-	for (var c=0; c<clientArray.length-1; c++){
-		
-		var clientIdNameArray = clientArray[c].split('-');
-		 
-		var client_id=clientIdNameArray[1]
-		var client_name=clientIdNameArray[0]
-		
-		//alert ("<option value="+ client_name+','+client_id +">" + client_name +"(" +client_id +")" + "</option>");
-		ob.prepend("<option value='"+ client_name+'_'+client_id +"'>" + client_name +"(" +client_id +")" + "</option>");
-		}						
-	var url = "#pageClient";
-	//$(location).attr('href',url);
-	$.mobile.navigate(url); 
-	// ob.prepend("<option value="+ blank +">" + text + "</option>");
-	// =====================client combo end=================
-	
-	
-	// var clientList=localStorage.clientListStr;
-// 				
-	// if (clientList=="" || clientList==undefined){
-			// $("#myerror").text("Required Route Synced");
-// 		
-		// }else{
-			// //$('#clientList').empty();
-			// //$('#clientList').append(clientList).trigger('create');
-// 			
-			// $('#clientList').html(clientList);
-// 			
-			// var url = "#pageClient";
-			// $(location).attr('href',url);
-			// }
-			
-}
-
 
 //================== Order
-function getOrder() {
+function getdelivery() {
 		$("#clientErrMsg").text("");
-		// $("#itemListDiv_hidden").html("")
-		// $("#itemListDiv").html("")
+
 		var clientIdName= $("#clientID_S").val();
 		var submit_type= $("#submit_type").val();
-		
-	//	alert (clientIdName);
-//		var clientIdName=clientIdName;
+
 		var itemList=localStorage.itemList;
 		//alert(itemList);
 		if (itemList==""){
@@ -417,23 +332,14 @@ function getOrder() {
 				//alert(clientArray);				
 				
 				
-				var clientStr='<table data-mode="reflow" class="ui-responsive table-stroke" style="width:100%;"><tr><td style="width:25%"> Client </td><td >: '+clientName+' ('+clientId+' )</td></tr></table>';//<tr><td style="width:25%"> Client Name</td><td>: '+clientName+'</td></tr><tr><td>'+'&nbsp;'+'</td><td>&nbsp;</td></tr></table>';
+				var clientStr='<table data-mode="reflow" class="ui-responsive table-stroke" style="width:100% ;color:#95004A"><tr><td> '+clientName+' ('+clientId+')</td></tr></table>';//<tr><td style="width:25%"> Client Name</td><td>: '+clientName+'</td></tr><tr><td>'+'&nbsp;'+'</td><td>&nbsp;</td></tr></table>';
 				
 				
 				
 				$('#clientDiv').empty();
 				$('#clientDiv').append(clientStr).trigger('create');
 				
-				
-				
-				
-				
-				
-				
-				
-				if (submit_type=='DELIVERYIM'){
-					
-					
+					submit_type=='DELIVERYIM';
 					$('#clientDiv_IM').empty();
 					$('#clientDiv_IM').append(clientStr).trigger('create');
 					
@@ -452,154 +358,74 @@ function getOrder() {
 					$.mobile.navigate(url);   
 					location.reload();
 					
-					//$('#itemComboDiv_IM').empty();
-					//alert (localStorage.itemComboIM);
-					///$('#itemComboDiv_IM').html(localStorage.itemComboIM);
-					//$(location).attr('href',url);
-				}
-				else{
-					
-					
-				
-				$('#orderListDiv').empty();
-				$('#orderListDiv').append(itemList).trigger('create');
-				
-				$('#itemCountDiv').empty();
-				$('#itemCountDiv').append(localStorage.itemDivCount).trigger('create');
-				
-				$('#itemComboDiv').empty();
-				$('#itemComboDiv').append(localStorage.itemCombo).trigger('create');
-				
-				var url = "#pageOrder";      
-				$(location).attr('href',url);
-				}
+
+		
 			}
 				  
 }
 
-//================== Order Next
-function ordNext() {
-		$("#ordErrMsg").text("");
+//==============client sync end========
+
+function refreshclientList() {	
+	$('#clientID_S').empty();
+	
+	$("#clientSearch").val('');
+	var clientArray=localStorage.clientListStr.split('rtrt')	
+	var ob = $("#clientID_S");
+	var value="";
+	var text="Select Client";
+	// ob.prepend("<option value="+ blank +">" + text + "</option>");
+	
+	for (var c=0; c<clientArray.length-1; c++){
 		
-		var clientID=$("#clientID").val();
-		var clientName=$("#clientName").val();
+		var clientIdNameArray = clientArray[c].split('-');
 		
-		if (clientID==""){
-			$("#reqErrMsg").text("Required Client");
-		}else{
-						
-			var tableStr='<table data-mode="reflow" class="ui-responsive" style="width:100%;">'
-			tableStr+='<tr><td >'+'<b>Client ID</b>'+'</td><td>:&nbsp;'+ clientID +'</td></tr>'
-			tableStr+='<tr><td>'+'<b>Client Name</b>'+'</td><td>:&nbsp;'+ clientName +'</td></tr>'
-			tableStr+='<tr><td>'+'&nbsp;'+'</td><td>&nbsp;</td></tr>'
-			tableStr+='</table>'
-			
-			
-			tableStr+='<table data-mode="reflow" class="ui-responsive" style="width:100%;" >'
-        	tableStr+='<tr><td ><b>Item Name (ID)</b></td><td style="text-align:right"><b>Rate</b></td><td style="text-align:right">&nbsp;<b>Qty</b></td><td style="text-align:right"><b>Amount</b></td></tr>'
-			
-			var divCount=$("#divCount").val();
-			// alert (divCount);
-			var count=0;
-			var submitStr='';
-			var amount=0.0
-			var totalAmt=0.0
-			for (i=0; i<divCount; i++){
-				count=count+1
-				var itemIdNameRate=$("#itemId"+count).val();
-				var itemIdNameRateArray = itemIdNameRate.split('-');
-				// alert (itemIdNameRate);
-				var itemId=itemIdNameRateArray[0]
-				var itemName=itemIdNameRateArray[1]
-				var itemRate=itemIdNameRateArray[2]	
-				
-				// var itemQty=$("#itemQty"+count).val();
-				var itemQty=$("#"+itemId).val();
-				// alert (itemQty)
-				var amount=0
-				if (itemQty=='' || itemQty==0){
-					continue
-				}else{                
-					if (isNaN(itemQty)){
-						continue
-					}else{
-						amount=(itemQty*itemRate)
-						totalAmt=totalAmt+amount
-						}
-				}
-				
-				if (submitStr==''){
-					submitStr=itemId+'fdfd'+itemName+'fdfd'+itemRate+'fdfd'+itemQty						
-				}else{
-					submitStr=submitStr+'fdrd'+itemId+'fdfd'+itemName+'fdfd'+itemRate+'fdfd'+itemQty
-				}
-				
-			    tableStr+='<tr><td style="font-size:12px;" >'+itemName+' ('+itemId+')'+'</td><td style="font-size:10px; text-align:right">'+itemRate+'</td><td style="font-size:10px; text-align:right">'+ itemQty +'</td><td style="font-size:10px; text-align:right">'+ amount.toFixed(2) +'</td></tr>'
-				
-			}//end for loop
-			//alert(totalAmt.toFixed(2))	
-			tableStr+='<tr><td style="font-size:11px"><b>Total</b></td><td >'+''+'</td><td >'+ '' +'</td><td style="font-size:11px; text-align:right"><b>'+ totalAmt.toFixed(2) +'</b></td></tr>'
-			tableStr+='</table>'
-			
-			submitStr=clientID+'rdrd'+submitStr
-			//alert(submitStr)
-			if (totalAmt > 0){				
-				$("#voucherItem").val(submitStr);
-				
-				$('#voucherDiv').empty();
-				$('#voucherDiv').append(tableStr).trigger('create');
-				
-				var url = "#pageVoucher";      
-				$(location).attr('href',url);
-				
-			}else{
-				$("#ordErrMsg").text("Required Item");
-				$("#ordErrMsg").focus();
-				}
-				
+		var client_id=clientIdNameArray[1]
+		 // alert (client_id);
+		var client_name=clientIdNameArray[0]
+		ob.prepend("<option value="+ client_name+'-'+client_id +">" + client_name +"(" +client_id +")" + "</option>");
 		}
+	
+	
+	
+}
+//================== Client List
+function clientList() {	
+	
+	// ====================client combo==================			
+							
+			
+	$('#clientID_S').empty();
+	
+	var clientArray=localStorage.clientListStr.split('rtrt')	
+	
+	var ob = $("#clientID_S");
+	var value="";
+	var text="Select Client";
+	// ob.prepend("<option value="+ blank +">" + text + "</option>");
+	
+	for (var c=0; c<clientArray.length-1; c++){
+		
+		var clientIdNameArray = clientArray[c].split('-');
+		 
+		var client_id=clientIdNameArray[1]
+		var client_name=clientIdNameArray[0]
+		
+		//alert ("<option value="+ client_name+','+client_id +">" + client_name +"(" +client_id +")" + "</option>");
+		ob.prepend("<option value='"+ client_name+'_'+client_id +"'>" + client_name +"(" +client_id +")" + "</option>");
+		}						
+	//var url = "#pageClient";
+	//$(location).attr('href',url);
+	//$.mobile.navigate(url); 
+	//location.reload();
+	// ob.prepend("<option value="+ blank +">" + text + "</option>");
+	// =====================client combo end=================
+	
+	
+
+			
 }
 
-//========================== voucher Submit
-function orderSubmit() {
-		var voucherItem=$("#voucherItem").val();
-		
-		if (voucherItem!=''){
-			getLatLong();
-			
-			var latitude=$("#lat").val();
-			var longitude=$("#long").val();
-			
-		//	$("#alert_show").html (apipath+'getSubmitResultOrd?cid='+localStorage.cid+'&repid='+localStorage.userid+'&password='+localStorage.password+'&synccode='+localStorage.synccode+'&routeid='+localStorage.routeId+'&mLatitude='+latitude+'&mLongitude='+longitude+'&data='+encodeURI(voucherItem));
-			$.ajax({
-					 //http://127.0.0.1:8000/mreporting/sync_mobile/orderSubmit?cid=DELTA&repid=101&password=123&synccode=6520&routeid=DE15&mLatitude=&mLongitude=&data=14891rdrd170fdfdACTIVIT%20B%20100ML.%20SYRUPfdfd15.74fdfd5fdrd204fdfdACTIVIT%20GOLD%20TABfdfd135.34fdfd6
-					  url: apipath+'getSubmitResultOrd?cid='+localStorage.cid+'&repid='+localStorage.userid+'&password='+localStorage.password+'&synccode='+localStorage.synccode+'&routeid='+localStorage.routeId+'&mLatitude='+latitude+'&mLongitude='+longitude+'&data='+encodeURI(voucherItem),
-					  success: function(result) {
-						  
-						if (result!='NO'){
-							resArray=result.split(',')
-							if (resArray[0]=='success'){
-								var vRes="Order "+"Voucher No. "+resArray[1]
-								$('#successVno').empty();
-								$('#successVno').append(vRes).trigger('create');
-											
-								url = "#pageEnd"; 
-								$(location).attr('href',url);
-							}							
-						}else{
-							alert('Authentication Error');
-							}
-						
-					  },
-					  error: function(result) {
-						alert(errror_str);
-					  }				  
-			});
-			
-		}else{	
-			alert (errorStr);		
-			}
-}
 
 function pageEndNextClient() {
 			clientList();
@@ -639,30 +465,7 @@ function set_route_combo() {
 }
 
 
-//================add item to list==================
 
-function set_item_combo() {
-	// alert (localStorage.itemCombo.length);
-	var itemArray=localStorage.itemCombo.split('rtrt')	;
-	var ob = $("#itemID_add");
-	// alert ('nadira')
-	$('#itemID_add').empty()
-	
-	var value="";
-	var text="Select Item";
-	// ob.prepend("<option value="+ blank +">" + text + "</option>");
-	for (var i=0; i<itemArray.length-1; i++){
-		var itemIdNameArray = itemArray[i].split('-');
-		var item_id=itemIdNameArray[0]
-		var item_name=itemIdNameArray[1]
-		ob.append("<option value="+ item_id +">" + item_name +"(" +item_id +")" + "</option>");
-		// "<option value='"+ item_id +"'>" + item_name +"(" +item_id +")" + "</option>");
-		}			
-	// ob.prepend("<option value="+ blank +">" + text + "</option>");						
-	// var url = "#pageOrder";      
-	// $(location).attr('href',url);
-			
-}
 
 function set_item_combo_IM() {
 	// alert (localStorage.itemCombo.length);
@@ -672,7 +475,7 @@ function set_item_combo_IM() {
 	$('#itemCombo_IM').empty()
 	
 	var value="";
-	var text="Select Item";
+	var text="";
 	// ob.prepend("<option value="+ blank +">" + text + "</option>");
 	for (var i=0; i<itemArray.length-1; i++){
 		var itemIdNameArray = itemArray[i].split('-');
@@ -689,99 +492,17 @@ function set_item_combo_IM() {
 
 
 //==============client sync================
-
-
-
-    
 function add_item() {
 	$("#"+item_value).focus();
 	}
 //==================submit type
 
-function submit_value() {
-	// alert ('nadira');
-	var submit_type=$("#submit_type").val()
-	if (submit_type=='ORDER'){
-		orderSubmit();
-	}
-	if (submit_type=='DELIVERY'){
-		deliverySubmit();
-	}
-	// alert (submit_type)
-	
-}
-function set_submit_type_ord() {
-	// alert ('nadira');
-	$("#submit_type").val('ORDER');
-	localStorage.submit_type='ORDER';
-}
-function set_submit_type_del() {
-	// alert ('nadira');
-	$("#submit_type").val('DELIVERY');
-	localStorage.submit_type='DELIVERY';
-}
 function set_submit_type_del_im() {
 	// alert ('nadira');
 	$("#submit_type").val('DELIVERYIM');
 	localStorage.submit_type='DELIVERYIM';
 }
 // =====================delivery submit=============
-function deliverySubmit() {
-		var voucherItem=$("#voucherItem").val();
-		
-		if (voucherItem!=''){
-			getLatLong();
-			
-			var latitude=$("#lat").val();
-			var longitude=$("#long").val();
-			
-		//	$("#alert_show").html (apipath+'getSubmitResultDel?cid='+localStorage.cid+'&repid='+localStorage.userid+'&password='+localStorage.password+'&synccode='+localStorage.synccode+'&routeid='+localStorage.routeId+'&mLatitude='+latitude+'&mLongitude='+longitude+'&data='+encodeURI(voucherItem));
-			$.ajax({
-					 //http://127.0.0.1:8000/mreporting/sync_mobile/orderSubmit?cid=DELTA&repid=101&password=123&synccode=6520&routeid=DE15&mLatitude=&mLongitude=&data=14891rdrd170fdfdACTIVIT%20B%20100ML.%20SYRUPfdfd15.74fdfd5fdrd204fdfdACTIVIT%20GOLD%20TABfdfd135.34fdfd6
-					  url: apipath+'getSubmitResultDel?cid='+localStorage.cid+'&repid='+localStorage.userid+'&password='+localStorage.password+'&synccode='+localStorage.synccode+'&routeid='+localStorage.routeId+'&mLatitude='+latitude+'&mLongitude='+longitude+'&data='+encodeURI(voucherItem),
-					  success: function(result) {
-						  
-						if (result!='NO'){
-							resArray=result.split(',')
-							if (resArray[0]=='success'){
-								var vRes="Delivery "+"Voucher No. "+resArray[1]
-								$('#successVno').empty();
-								$('#successVno').append(vRes).trigger('create');
-											
-								url = "#pageEnd"; 
-								$(location).attr('href',url);
-							}							
-						}else{
-							alert('Authentication Error');
-							}
-						
-					  },
-					  error: function(result) {
-						alert(errror_str);
-					  }				  
-			});
-			
-		}else{	
-			alert (errorStr);		
-			}
-}
-
-
-function dcrDataSubmit(){
-		var drName=$("#doctor").val();
-		var drCampaign=$("#dr_camp").val();
-		var drGift=$("#dr_gift").val();
-		var drSample=$("#dr_sample").val();
-		var drSampleQty=$("#dr_sample_qty").val();
-		
-	}
-
-/*function add_theme(a) {
-	localStorage.theme='"static/'+a+'.css"';
-	alert (localStorage.theme);	
-	location.reload();
-	}
-*/
 
 //====================Delivery IM Item add Start==========
 function addItemIM(){
@@ -795,11 +516,17 @@ function addItemIM(){
 	//alert (itemID)
 	if ((itemID != 0) && (itemID != undefined) && (itemID != 'undefined')){
 		im_number= im_number+1;
-		$('#item_table').append('<tr id="'+im_number.toString()+'_row"><td style="color:#063">'+itemName+
+		
+		localStorage.im_number=im_number;
+		//alert (localStorage.im_number);
+		$('#item_table').append('<tr id="'+im_number.toString()+'_row"><td style="color:#95004A">'+itemName+
 		'<input name="'+im_number.toString()+'_IMID" id="'+im_number.toString()+'_IMID"  value="'+itemID+'" type="hidden">'+
 		'<input name="'+im_number.toString()+'_item_name" id="'+im_number.toString()+'_item_name"  value="'+itemName+'" type="hidden">'+		
-		'</td><td> <input style="height:25px; width:90%;color:#063;background-color:#E6F2FF; font-size:15px; font-weight:bold;border:thin; border-radius:5%;" name="'+im_number.toString()+'_IM" id="'+im_number.toString()+'_IM" placeholder="" value="" type="number"></td><td><input style="background-color:#B6DADA; color:#0AA; border:thin; border-radius:5%" name="'+im_number.toString()+'_IM_del" id="'+im_number.toString()+'_IM_del" type="button" onClick="deleteItem('+im_number+')" value="X"></td> </tr>');
+		'</td><td> <input style="height:25px; width:90%;background-color:#F4F4F4; color:#95004A; font-size:15px; font-weight:bold;border:thin; border-radius:5%;" name="'+im_number.toString()+'_IM" id="'+im_number.toString()+'_IM" placeholder="" value="" type="number"></td><td><input style="background-color:#F4F4F4; color:#95004A; border:thin; border-radius:5%" name="'+im_number.toString()+'_IM_del" id="'+im_number.toString()+'_IM_del" type="button" onClick="deleteItem('+im_number+')" value="X"></td> </tr>');
 	}
+	
+	
+	
 }
 
 function deleteItem(im_number){
@@ -808,32 +535,49 @@ function deleteItem(im_number){
 
 function confirmDeliveryIM(){
 	
-	$('#combo_div').hide();
+	
 	var delivery_submit_string ="";
+	//alert (localStorage.im_number);
+	var ime_error=0;
 	for (var i=1; i < im_number+1; i++){
 		var item_id=$("#"+i.toString()+"_IMID").val();
 		var item_name=$("#"+i.toString()+"_item_name").val();
 		var item_IM=$("#"+i.toString()+"_IM").val();
 		
-		if ((item_id != undefined) && (item_IM != undefined) & (item_id != "") && (item_IM != "")) {
-			delivery_submit_string=delivery_submit_string+item_id+'fdfd'+item_name+'fdfd'+item_IM+'rdrd'
+		
+		if ((item_id != undefined) && (item_id != "")){
+			if ((item_IM.length < parseInt(localStorage.ime_min)) || (item_IM.length > parseInt(localStorage.ime_max)) || (delivery_submit_string.indexOf(item_IM) != -1)){
+				ime_error=1;
+				$("#"+i.toString()+"_row").css({ 'background-color' : '#FDE'});
+			}
+			else{
+				//ime_error=0;
+				$("#"+i.toString()+"_row").css({ 'background-color' : 'transparent'});
+			}
+			//alert ('nadira');
+			if ((item_id != undefined) && (item_IM != undefined) & (item_id != "") && (ime_error != 1)) {
+				delivery_submit_string=delivery_submit_string+item_id+'fdfd'+item_name+'fdfd'+item_IM+'rdrd'
+			}
 		}
 	}
 	
 	//alert (delivery_submit_string.length);
 	if (delivery_submit_string.length ==0){
-		$("#erro_IM").html ('Need IMEI' );
+		$("#erro_IM").html ('Error in IMEI' );
 		$('#sub_button_IM').hide();
 		$('#cnf_button_IM').show();
 		
 	}
 	else{
-		$("#erro_IM").hide ('');
-		$('#itm_IM').find('input, textarea, button, select').attr('disabled','disabled');
+		//$("#erro_IM").hide ();
+		$('#itm_IM').find('input, textarea, button, select').attr('disabled', true);
 		$('#submit_string_IM').val(delivery_submit_string);
 	
+		$('#combo_div').hide();
 		$('#sub_button_IM').show();
 		$('#cnf_button_IM').hide();
+		
+		$("#erro_IM").html ('' );
 		
 		getLatLong();
 	}
@@ -843,33 +587,139 @@ function submitDeliveryIM(){
 	var submit_string_IM=$('#submit_string_IM').val();
 	var clientID_IM=$('#clientID_IM').val();
 	
-	
-	
-	
 	if (submit_string_IM!=''){
+		
 		var latitude=$("#lat_IM").val();
 		var longitude=$("#long_IM").val();
+		//var latitude='13133';
+		//var longitude='1354646';
+		
+		//alert (latitude);
+		if ((latitude=='') || (longitude=='')){
 			
+			$("#erro_IM").html("Location has not confirmed. Please check you have the GPS on.");
+			$("#erro_IM").show();			
+						
+			$('#sub_button_IM').hide();
+			$('#cnf_button_IM').show();
+			$('#combo_div').show();
+			$('#itm_IM').find('input, textarea, button, select').attr('disabled', false);
+		}
+		
+		else{
+			//$('#sub_button_IM').hide();
+			//alert ('nadira');
 			//$("#erro_IM").html (apipath+'getSubmitResultDel_IM?cid='+localStorage.cid+'&repid='+localStorage.userid+'&password='+localStorage.password+'&synccode='+localStorage.synccode+'&routeid='+localStorage.routeId+'&mLatitude='+latitude+'&mLongitude='+longitude+'&client='+clientID_IM+'&data='+submit_string_IM);
+			$.ajax({
+				  type: 'POST',
+				  url: apipath+'getSubmitResultDel_IM?cid='+localStorage.cid+'&repid='+localStorage.userid+'&password='+localStorage.password+'&synccode='+localStorage.synccode+'&routeid='+localStorage.routeId+'&mLatitude='+latitude+'&mLongitude='+longitude+'&client='+clientID_IM+'&data='+submit_string_IM,
+				  success: function(result) {
+					  
+					if (result!='NO'){
+						resArray=result.split('#')
+						//alert (result)
+						if (resArray[0]=='success'){
+							var vRes="Delivery "+"Voucher No. "+resArray[1]
+							//$('#successVno').empty();
+							$('#successVno').html(vRes);
+										
+							url = "#pageEnd"; 
+							$.mobile.navigate(url);
+							//location.reload();
+						}
+						if (resArray[0]=='invalidIM'){
+							
+							$("#erro_IM").html(resArray[1]);
+							$("#erro_IM").show();			
+							
+							var error_ime_found=resArray[1].replace('Invalid IM:','')
+							//$("#erro_IM").html(error_ime_found);
+							check_invalid_ime(error_ime_found);
+							
+							$('#sub_button_IM').hide();
+							$('#cnf_button_IM').show();
+							$('#combo_div').show();
+							$('#itm_IM').find('input, textarea, button, select').attr('disabled', false);
+							
+							
+						}
+						
+					}else{
+						alert('Authentication Error');
+						}
+					
+				  },
+				  error: function(result) {
+					alert(errror_str);
+				  }				  
+				});
+			}//end else
+		} // end if submit string
+		else{	
+			alert (errorStr);		
+			}
+	
+	
+}
+
+function check_invalid_ime(str){
+	//alert (localStorage.im_number);
+	
+	//alert (str);
+	resArray=str.split(',')
+	
+	for (var j=0; j < resArray.length -1; j++){
+		for (var i=1; i < im_number+1; i++){
+			var item_IM=$("#"+i.toString()+"_IM").val();
+			if (item_IM==resArray[j]){
+				$("#"+i.toString()+"_row").css({ 'background-color' : '#FDE'});
+			}
+			
+		}
+	}
+}
+
+
+//====================Delivery IM Item add End=================
+
+function go_home(){
+	$.mobile.navigate("#pageHome"); 
+	location.reload();
+}
+
+
+//===================Notice Board=====================
+function notice_board() {
+		
+		//$('#notice_error').html(apipath+'getNotice?cid='+localStorage.cid+'&repid='+localStorage.userid+'&password='+localStorage.password+'&synccode='+localStorage.synccode);
 		$.ajax({
 			  type: 'POST',
-			  url: apipath+'getSubmitResultDel_IM?cid='+localStorage.cid+'&repid='+localStorage.userid+'&password='+localStorage.password+'&synccode='+localStorage.synccode+'&routeid='+localStorage.routeId+'&mLatitude='+latitude+'&mLongitude='+longitude+'&client='+clientID_IM+'&data='+submit_string_IM,
+			  url: apipath+'getNotice?cid='+localStorage.cid+'&repid='+localStorage.userid+'&password='+localStorage.password+'&synccode='+localStorage.synccode,
 			  success: function(result) {
 				  
-				if (result!='NO'){
-					resArray=result.split(',')
-					if (resArray[0]=='success'){
-						var vRes="Delivery "+"Voucher No. "+resArray[1]
-						$('#successVno').empty();
-						$('#successVno').append(vRes).trigger('create');
-									
-						url = "#pageEnd"; 
-						$.mobile.navigate(url);
-						location.reload();
-						//$(location).attr('href',url);
+				if (result!=''){
+					
+					resArray=result.split('rdrd')
+					var notice_string ='';
+					for (var i=0; i<resArray.length-1; i++){
+						var notice_singleArray = '';
+						var sl ='';
+						var notice_date ='';
+						var notice ='';
 						
-						
-					}							
+						notice_singleArray = resArray[i].split('fdfd');
+						sl =notice_singleArray[0];
+						notice_date =notice_singleArray[1].substr(0,10);
+						notice =notice_singleArray[2];
+						notice_string=notice_string+'<div style="color:#BC073E">'+notice_date+'</div><div style="color:#BC073E">'+notice+'</div></br>'
+					}
+					
+					localStorage.notice=notice_string;
+					$('#notice').html(localStorage.notice);
+								
+					//url = "#pageEnd"; 
+					//$.mobile.navigate(url);
+					//location.reload();					
 				}else{
 					alert('Authentication Error');
 					}
@@ -879,17 +729,101 @@ function submitDeliveryIM(){
 				alert(errror_str);
 			  }				  
 			});
-			
-		}else{	
-			alert (errorStr);		
-			}
+	}
 	
+	
+//===================Report=====================
+function show_report() {
+		
+		var date_from=$("#date_from").val();
+		var date_to=$("#date_to").val();
+		
+		//alert (date_from);
+		//$('#reporterror').html(apipath+'getReport?cid='+localStorage.cid+'&repid='+localStorage.userid+'&password='+localStorage.password+'&synccode='+localStorage.synccode+'&date_from='+date_from+'&date_to='+date_to);
+		$.ajax({
+			  type: 'POST',
+			  url: apipath+'getReport?cid='+localStorage.cid+'&repid='+localStorage.userid+'&password='+localStorage.password+'&synccode='+localStorage.synccode+'&date_from='+date_from+'&date_to='+date_to,
+			  success: function(result) {
+				  
+				if (result!=''){
+					$('#report_table').append(' <tr style="background-color:#6F0037 ; font-weight:bold" ><td width="5px" ></td><td >Model</td><td>QTY</td></tr>');
+
+					resArray=result.split('rdrd')
+					var notice_string ='';
+					for (var i=0; i<resArray.length-1; i++){
+						var report_singleArray = '';
+						var item_name ='';
+						var report_count ='';
+						
+						
+						report_singleArray = resArray[i].split('fdfd');
+						item_name =report_singleArray[0];
+						report_count =report_singleArray[1];
+						
+						var row_string=''
+						if (i%2==0){
+							row_string='<tr style="background-color:#F7F7F7"><td></td><td style="color:#003E3E">'+item_name+
+													'</td><td style="color:#003E3E" align="left">'+report_count+'</td></tr>'
+						}
+						else{
+							row_string='<tr ><td></td><td style="color:#003E3E">'+item_name+
+													'</td><td style="color:#003E3E" align="left">'+report_count+'</td></tr>'
+						}
+						$('#report_table').append(row_string);
+
+						
+					}
+					
+					
+					
+								
+					//url = "#pageEnd"; 
+					//$.mobile.navigate(url);
+					//location.reload();					
+				}else{
+					alert('Authentication Error');
+					}
+				
+			  },
+			  error: function(result) {
+				alert(errror_str);
+			  }				  
+			});
+	}
+	
+//================== Clear Sync
+function clearSync() {
+	localStorage.cid="";
+	localStorage.userid="";
+	localStorage.password="";
+	localStorage.synccode="";
+	localStorage.routeList="";
+	localStorage.itemList="";
+	localStorage.itemDivCount="";
+	localStorage.routeId="";
+	localStorage.routeName="";
+	localStorage.clientListStr="";
+	localStorage.itemCombo="";
+	
+	localStorage.itemComboIM="";
+	localStorage.ime_min="";
+	localStorage.ime_max="";
+	
+	url = "#pageSync"; 
+	$.mobile.navigate(url);
+	location.reload();
 	
 }
 
-//====================Delivery IM Item add End=================
-
-function go_home(){
-	$.mobile.navigate("#pageHome"); 
-	location.reload();
+function check_auth (){
+	
+	if (localStorage.synccode==""){
+		url = "#pageSync"; 
+		$.mobile.navigate(url);
+	}
+	else{
+		url = "#pageHome"; 
+		$.mobile.navigate(url);
+		
+	}
 }
