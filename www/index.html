@@ -143,7 +143,7 @@
                 <!--<h3>Report</h3>-->
             </div>
             <div data-role="content">
-				<div id="reporterror" style="color:#C00"></div>
+				
                 <div id="date_check">
                 <table width="100%" border="0" cellpadding="0" cellspacing="0">
                   <tr>
@@ -155,9 +155,13 @@
                     
                   </tr>
                   <tr>
-                    <td><a data-role="button" data-transition="slide" onClick="show_report();" >Report</a></td>
+                    <td><a id="reportShow" name="reportShow" data-role="button" data-transition="slide" onClick="show_report();" >Report</a></td>
                   </tr>
                 </table>
+                
+                </br>
+                
+                <div id="reporterror" style="color:#C10000; font-size:10px"></div>
                  </div>
 
                 <div data-role="fieldcontain">
@@ -188,7 +192,7 @@
 			   </ul>
 			   
                 <div data-role="fieldcontain">
-					<div id="notice" style="background-color:#F4EAEA;  width:100%; height:200px; border-radius:10px;"></div>
+					<div id="notice" style="background-color:#F4EAEA; color:#BC073E;  width:100%; height:200px; border-radius:10px;"></div>
 					<div id="notice_error"></div>
                 </div>
             </div><!--/cont-->
@@ -203,7 +207,7 @@
                 <!--<h3>Authorization</h3>-->
             </div>
             <div data-role="content">
-            	<div id="mySyncError" style="color:#033; font-size:9px"></div>
+            	
 				<ul data-role="listview" data-divider-theme="c" data-inset="true">
                     <li data-role="list-divider" role="heading">Authorization</li>
 				</ul>
@@ -212,13 +216,18 @@
 				<input name="cid" id="cid"  type="text" placeholder="CID" value="OKAPIA" disabled="disabled">	
 				<input name="repid" id="repid"  value="" type="text" placeholder="User ID"  >	
 				<input type="password" name="" id="password"  value="" placeholder="Password">	
-				<input type="submit" id="basicSync" name="basicSync" value="Submit" >
+				
+                <div id="syncButton"><input type="submit" id="basicSync" name="basicSync" value="Submit" > </div>
+                
+                
 				<!--</form>-->
                 <br>
-                <ul data-role="listview" data-divider-theme="c" data-inset="true">
+                
+                <div id="mySyncError" style="color:#C10000; font-size:10px"></div>
+                <!--<ul data-role="listview" data-divider-theme="c" data-inset="true">
                     <li data-role="list-divider" role="heading">Clear Authorization</li>
 				</ul>
-                <input type="submit" id="clearSync" onClick="clearSync()" name="clearSync" value="Clear Sync" > 
+                <input type="submit" id="clearSync" onClick="clearSync()" name="clearSync" value="Clear Sync" > -->
                 <br><br><br><br><br><br><br><br><br><br>
             </div>
             
@@ -236,7 +245,7 @@
                <!-- <h3>Route</h3>-->
             </div>
             <div data-role="content">
-            	<div id="mySyncError_route" style="color:#033; font-size:9px"></div>
+            	
             	<ul data-role="listview" data-divider-theme="c" data-inset="true">
                     <li data-role="list-divider" role="heading" >Select Route</li>
 				</ul>
@@ -345,8 +354,11 @@
 
 			<br>
 			<div id="selected_route"></div>
-			<input type="submit" id="routeSync" name="routeSync" value="Sync Route" >
-                <br><br><br><br><br><br><br>
+			<div id="routeButton"> <input type="submit" id="routeSync" name="routeSync" value="Sync Route" > </div>
+                <br>
+                <div id="mySyncError_route" style="color:#C10000; font-size:10px"></div>   
+                
+                <br><br><br><br><br><br>
             </div>
 	<!--==========footer======-->	
 
@@ -370,7 +382,7 @@
             </div>
 			<div data-role="content">	
 
-			<div id="mySyncError_client"></div>
+			
 			
 			<ul data-role="listview" data-divider-theme="c" data-inset="true">
                     <li data-role="list-divider" role="heading" >Select Outlet</li>
@@ -447,7 +459,10 @@
 	<!--=============client selct end===============-->				
 					<br><br>
                     <input type="submit" id="clientSync" name="clientSync" value="Next" onClick="getdelivery();refreshclientList();" >
-                    <br><br><br><br><br><br><br><br><br><br>	
+                    <br>
+                    
+                    <div id="mySyncError_client" style="color:#C10000; font-size:10px"></div>
+                    <br><br><br><br><br><br><br><br><br>	
             </div>
 				<!--==========footer======-->	
 

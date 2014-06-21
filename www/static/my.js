@@ -87,6 +87,12 @@ $('#basicSync').click(function() {
 		}else{
 			 //alert(apipath+'syncRepJMobileSS?cid='+cidValue+'&repid='+repid+'&mobile=8801234567890&password='+password);
 			//$("#mySyncError").html(apipath+'syncRepSS?cid='+cidValue+'&repid='+repid+'&mobile=8801234567890&password='+password) ;
+			 
+			 $("#mySyncError").text("Sync in Progress. Pleae Wait...");
+			 $("#syncButton").hide();
+			 
+			
+			 
 			 $.ajax({
 				 //http://127.0.0.1:8000/mreporting/sync_mobile/syncRepSS?cid=DELTA&repid=13073&mobile=8801234567890&password=123
 				 //url: apipath+'sync_mobile/syncRepSS?cid=DEMO&dpid='+mobile+'&mobile=8801234567890&password='+password,
@@ -146,6 +152,8 @@ $('#basicSync').click(function() {
 							//var url = "#pageSync";
 							//$.mobile.navigate(url);
 							$("#mySyncError").html("Authorization and basic data synchronized. Please Sync Route.");
+							
+							$("#syncButton").show();
 							//$(location).attr('href',url);
 							
 							//---------------
@@ -154,13 +162,16 @@ $('#basicSync').click(function() {
 							
 							//$(location).attr('href',url);
 							$.mobile.navigate(url); 
-							$("#mySyncError").html('Authentication Error. Please contact your company system admin');			
+							$("#mySyncError").html('Authentication Error. Please contact your company system admin');
+							$("#syncButton").show();			
 						}
 				  },
 				  error: function(result) {
 					  $("#mySyncError").html(errror_str);
+					  $("#syncButton").show();
 					  var url = "#pageSync";
 					  $.mobile.navigate(url); 
+					  
 					//	$(location).attr('href',url);
 				  }
 				  
@@ -182,7 +193,12 @@ $('#basicSync').click(function() {
 			$(location).attr('href',url);
 		
 		}else{
-			$("#mySyncError_route").text("");
+			$("#mySyncError_route").text("Sync in Progress. Pleae Wait...");
+			
+			$("#routeButton").hide();
+			
+			
+			
 			
 			var routeIdNameArray = routeIdName.split('-');
 			var routeId=routeIdNameArray[0];
@@ -218,6 +234,8 @@ $('#basicSync').click(function() {
 							$("#mySyncError_route").text(localStorage.set_route_msg);	
 							
 							
+							$("#routeButton").show();
+							
 							//$('#clientList').empty();
 //							$('#clientList').append(temp).trigger('create');
 //							
@@ -234,6 +252,8 @@ $('#basicSync').click(function() {
 						}else if (clientResArray[0]=='NO'){
 							$("#mySyncError_route").text('Authentication Error');		
 							
+							$("#routeButton").show();
+							
 							var url = "#pageSyncRoute";
 							$.mobile.navigate(url); 
 							//location.reload();
@@ -241,7 +261,11 @@ $('#basicSync').click(function() {
 						}
 				  },
 				  error: function(result) {
-					alert(errror_str);
+					$("#mySyncError_route").text(errror_str);	
+					$("#routeButton").show();
+					var url = "#pageSyncRoute";
+					$.mobile.navigate(url); 
+					//alert(errror_str);
 				  }
 				  
 			});//end ajax
@@ -567,7 +591,7 @@ function confirmDeliveryIM(){
 	}
 	
 	//alert (delivery_submit_string.length);
-	if (delivery_submit_string.length ==0){
+	if ((delivery_submit_string.length ==0) || (ime_error==1)){
 		$("#erro_IM").html ('Error in IMEI' );
 		$('#sub_button_IM').hide();
 		$('#cnf_button_IM').show();
@@ -654,18 +678,21 @@ function submitDeliveryIM(){
 						}
 						
 					}else{
-						alert('Authentication Error');
+						$("#erro_IM").html('Authentication Error');
+						//alert('Authentication Error');
 						}
 					
 				  },
 				  error: function(result) {
-					alert(errror_str);
+					  $("#erro_IM").html(errror_str);
+					//alert(errror_str);
 				  }				  
 				});
 			}//end else
 		} // end if submit string
 		else{	
-			alert (errorStr);		
+			$("#erro_IM").html(errror_str);
+			//alert (errorStr);		
 			}
 	
 	
@@ -720,7 +747,7 @@ function notice_board() {
 						sl =notice_singleArray[0];
 						notice_date =notice_singleArray[1].substr(0,10);
 						notice =notice_singleArray[2];
-						notice_string=notice_string+'<div style="color:#BC073E">'+notice_date+'</div><div style="color:#BC073E">'+notice+'</div></br>'
+						notice_string=notice_string+'<div style="color:#BC073E"> '+notice_date+':</div><div style="color:#BC073E">'+notice+'</div></br>'
 					}
 					
 					localStorage.notice=notice_string;
@@ -730,12 +757,14 @@ function notice_board() {
 					//$.mobile.navigate(url);
 					//location.reload();					
 				}else{
-					alert('Authentication Error');
+					$('#notice').html('Authentication Error');
+					//alert('Authentication Error');
 					}
 				
 			  },
 			  error: function(result) {
-				alert(errror_str);
+				$('#notice').html(errror_str);
+				//alert(errror_str);
 			  }				  
 			});
 	}
@@ -749,6 +778,9 @@ function show_report() {
 		
 		//alert (date_from);
 		//$('#reporterror').html(apipath+'getReport?cid='+localStorage.cid+'&repid='+localStorage.userid+'&password='+localStorage.password+'&synccode='+localStorage.synccode+'&date_from='+date_from+'&date_to='+date_to);
+		
+		$('#reporterror').html("Sync in progress. Please Wait ..");
+		$('#reportShow').hide();
 		$.ajax({
 			  type: 'POST',
 			  url: apipath+'getReport?cid='+localStorage.cid+'&repid='+localStorage.userid+'&password='+localStorage.password+'&synccode='+localStorage.synccode+'&date_from='+date_from+'&date_to='+date_to,
@@ -784,18 +816,23 @@ function show_report() {
 					}
 					
 					
-					
+					$('#reporterror').html("");
+					$('#reportShow').show();
 								
 					//url = "#pageEnd"; 
 					//$.mobile.navigate(url);
 					//location.reload();					
 				}else{
-					alert('Authentication Error');
+					$('#reporterror').html("Authentication Error");
+					$('#reportShow').show()
+					//alert('Authentication Error');
 					}
 				
 			  },
 			  error: function(result) {
-				alert(errror_str);
+				  $('#reporterror').html("Authentication Error");
+				  $('#reportShow').show()
+				//alert(errror_str);
 			  }				  
 			});
 	}
@@ -817,8 +854,10 @@ function clearSync() {
 	localStorage.itemComboIM="";
 	localStorage.ime_min="";
 	localStorage.ime_max="";
-	
+
 	localStorage.set_route_msg="";
+	
+	localStorage.notice="";
 	
 	url = "#pageSync"; 
 	$.mobile.navigate(url);
