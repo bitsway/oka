@@ -131,7 +131,7 @@ $('#basicSync').click(function() {
 							
 							//alert (localStorage.itemCombo);
 							//$("#mySyncError").html(loginResult);
-							$("#mySyncError").html("Authorization and basic data synchronized. Please Sync route.");
+							$("#mySyncError").html("Authorization and basic data synchronized. Please Sync Route.");
 							$("#cid").val("") ;
 							$("#repid").val("") ;
 							$("#password").val("") ;
@@ -143,11 +143,9 @@ $('#basicSync').click(function() {
 							//$('#itemComboDiv_IM').empty();
 							//$('#itemComboDiv_IM').append(localStorage.itemComboIM).trigger('create');
 							
-							var url = "#pageSync";
-							 
-							
-							$.mobile.navigate(url);
-							$("#mySyncError").html("Authorization and basic data synchronized. Please Sync route.");
+							//var url = "#pageSync";
+							//$.mobile.navigate(url);
+							$("#mySyncError").html("Authorization and basic data synchronized. Please Sync Route.");
 							//$(location).attr('href',url);
 							
 							//---------------
@@ -198,7 +196,8 @@ $('#basicSync').click(function() {
 				 success: function(result) {
 						
 						if (result==''){
-							alert ('Sorry Network not available');
+							//alert ('Sorry Network not available');
+							$("#mySyncError_route").text('Sorry Network not available. Please check network signal and try to submit again.');	
 						}
 						//alert (result);
 						var clientResArray = result.split('rdrd');			
@@ -213,18 +212,23 @@ $('#basicSync').click(function() {
 							
 							
 							
+							var set_route="Route '"+localStorage.routeName+" ("+localStorage.routeId+" )' Synced Successfully"
+							localStorage.set_route_msg=set_route
+							
+							$("#mySyncError_route").text(localStorage.set_route_msg);	
 							
 							
-							 $("#mySyncError_route").text("Route '"+localStorage.routeName+" ("+localStorage.routeId+" )' Synced Successfully");	
-							
-							
-							$('#clientList').empty();
-							$('#clientList').append(temp).trigger('create');
-							
-							$('#clientList').html(localStorage.clientListStr.toString());
+							//$('#clientList').empty();
+//							$('#clientList').append(temp).trigger('create');
+//							
+							//$('#clientList').html(localStorage.clientListStr.toString());
+							//location.reload();
 							
 							/*var url = "#pageClient";
 							$(location).attr('href',url);*/
+							//var url = "#pageSyncRoute";
+							//$.mobile.navigate(url); 
+							//location.reload();
 							
 							//---------------
 						}else if (clientResArray[0]=='NO'){
@@ -232,6 +236,7 @@ $('#basicSync').click(function() {
 							
 							var url = "#pageSyncRoute";
 							$.mobile.navigate(url); 
+							//location.reload();
 							//$(location).attr('href',url);
 						}
 				  },
@@ -310,9 +315,9 @@ function getdelivery() {
 		var itemList=localStorage.itemList;
 		//alert(itemList);
 		if (itemList==""){
-			$("#clientErrMsg").text("Client not available");	
+			$("#clientErrMsg").text("Client or Outlet not available");	
 		}else{	
-				var clientArray=clientIdName.split("_");
+				var clientArray=clientIdName.split("-");
 				var clientName=clientArray[0];
 				var clientId=clientArray[1];
 				//alert (clientIdName);
@@ -412,7 +417,7 @@ function clientList() {
 		var client_name=clientIdNameArray[0]
 		
 		//alert ("<option value="+ client_name+','+client_id +">" + client_name +"(" +client_id +")" + "</option>");
-		ob.prepend("<option value='"+ client_name+'_'+client_id +"'>" + client_name +"(" +client_id +")" + "</option>");
+		ob.prepend("<option value='"+ client_name+'-'+client_id +"'>" + client_name +"(" +client_id +")" + "</option>");
 		}						
 	//var url = "#pageClient";
 	//$(location).attr('href',url);
@@ -519,10 +524,10 @@ function addItemIM(){
 		
 		localStorage.im_number=im_number;
 		//alert (localStorage.im_number);
-		$('#item_table').append('<tr id="'+im_number.toString()+'_row"><td style="color:#95004A">'+itemName+
+		$('#item_table').append('<tr id="'+im_number.toString()+'_row" style="height:35px;  font-size:24px"><td style="color:#95004A">'+itemName+
 		'<input name="'+im_number.toString()+'_IMID" id="'+im_number.toString()+'_IMID"  value="'+itemID+'" type="hidden">'+
 		'<input name="'+im_number.toString()+'_item_name" id="'+im_number.toString()+'_item_name"  value="'+itemName+'" type="hidden">'+		
-		'</td><td> <input style="height:25px; width:90%;background-color:#F4F4F4; color:#95004A; font-size:15px; font-weight:bold;border:thin; border-radius:5%;" name="'+im_number.toString()+'_IM" id="'+im_number.toString()+'_IM" placeholder="" value="" type="number"></td><td><input style="background-color:#F4F4F4; color:#95004A; border:thin; border-radius:5%" name="'+im_number.toString()+'_IM_del" id="'+im_number.toString()+'_IM_del" type="button" onClick="deleteItem('+im_number+')" value="X"></td> </tr>');
+		'</td><td> <input style="height:30px; width:90%;background-color:#F4F4F4; color:#95004A; font-size:15px; font-weight:bold;border:thin; border-radius:5%;" name="'+im_number.toString()+'_IM" id="'+im_number.toString()+'_IM" placeholder="" value="" type="number"></td><td><input style="background-color:#F4F4F4; color:#95004A; border:thin; border-radius:5%" name="'+im_number.toString()+'_IM_del" id="'+im_number.toString()+'_IM_del" type="button" onClick="deleteItem('+im_number+')" value="   X   "></td> </tr>');
 	}
 	
 	
@@ -597,7 +602,7 @@ function submitDeliveryIM(){
 		//alert (latitude);
 		if ((latitude=='') || (longitude=='')){
 			
-			$("#erro_IM").html("Location has not confirmed. Please check you have the GPS on.");
+			$("#erro_IM").html("Location can not be confirmed. Please check you have the GPS and AGPS on.");
 			$("#erro_IM").show();			
 						
 			$('#sub_button_IM').hide();
@@ -610,6 +615,10 @@ function submitDeliveryIM(){
 			//$('#sub_button_IM').hide();
 			//alert ('nadira');
 			//$("#erro_IM").html (apipath+'getSubmitResultDel_IM?cid='+localStorage.cid+'&repid='+localStorage.userid+'&password='+localStorage.password+'&synccode='+localStorage.synccode+'&routeid='+localStorage.routeId+'&mLatitude='+latitude+'&mLongitude='+longitude+'&client='+clientID_IM+'&data='+submit_string_IM);
+			
+			$('#sub_button_IM').hide();
+			$('#erro_IM').html("Sync in progress. Please Wait ..");
+			$("#erro_IM").show();
 			$.ajax({
 				  type: 'POST',
 				  url: apipath+'getSubmitResultDel_IM?cid='+localStorage.cid+'&repid='+localStorage.userid+'&password='+localStorage.password+'&synccode='+localStorage.synccode+'&routeid='+localStorage.routeId+'&mLatitude='+latitude+'&mLongitude='+longitude+'&client='+clientID_IM+'&data='+submit_string_IM,
@@ -809,6 +818,8 @@ function clearSync() {
 	localStorage.ime_min="";
 	localStorage.ime_max="";
 	
+	localStorage.set_route_msg="";
+	
 	url = "#pageSync"; 
 	$.mobile.navigate(url);
 	location.reload();
@@ -826,4 +837,11 @@ function check_auth (){
 		$.mobile.navigate(url);
 		
 	}
+}
+
+function set_paget (){
+		url = "#pageClient"; 
+		$.mobile.navigate(url);
+		location.reload();
+	
 }

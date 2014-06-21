@@ -78,9 +78,12 @@
 			
 			$('#notice').html(localStorage.notice);
 			
+			$("#mySyncError_route").text(localStorage.set_route_msg);	
+			
 			set_item_combo_IM();
 			
-			refreshclientList();
+			//refreshclientList();
+			clientList();
 			
 		});
 		
@@ -92,16 +95,16 @@
 
 
 
-    <div  style=" color:#FDE"data-theme="c" data-role="page" id="pageHome">
+    <div  style=" color:#FDE;" data-theme="c" data-role="page" id="pageHome">
         <div data-theme="c" data-role="header" data-position="fixed" style="height:50px" >
             <a style="background-color:#F8F8F8; height:25px; width:145px"  data-role="button" href="#leftpanel3" class="ui-btn-left ui-btn-icon-notext"><img src="logo.png"> </a>
-            <a style="background-color:#F8F8F8; height:25px; width:50px" data-role="button" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext"  onClick="exit();"><img src="power_image.png"> </a>
-            <h3>Home</h3>
+            <a style="background-color:#F8F8F8; height:25px; width:50px" data-role="button" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right "  onClick="exit();"><img src="power_image.png"> </a>
+            <!--<h3>Home</h3>-->
         </div>
     <div data-role="content">
             <div id="myerror" style="color:#C00;"></div>
             <div data-role="fieldcontain">
-               <a data-role="button" data-transition="slide" href="#pageClient" onClick="clientList();set_submit_type_del_im();"  >Delivery</a>
+               <a data-role="button" data-transition="slide"  onClick="set_paget();"  >Delivery</a>
                <a data-role="button" data-transition="slide" onClick="notice_board()"  href="#noticeBoard" >Notice Board</a>
                
                <a data-role="button" data-transition="slide" href="#pageReport" >Report</a>
@@ -136,8 +139,8 @@
             <div data-theme="c" data-role="header" data-position="fixed" style="height:50px">
 
 			<a  style="background-color:#F8F8F8; height:25px; width:145px" data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext" onClick="check_auth();"><img  src="logo.png"> </a>
-            <a style="background-color:#F8F8F8; height:25px; width:50px"data-role="button" data-rel="back"   data-iconpos="left" class="ui-btn-right"  onClick="check_auth();"><img  src="back_image.png"></a>
-                <h3>Report</h3>
+            <a style="background-color:#F8F8F8; height:25px; width:50px"data-role="button" data-rel="back"   data-iconpos="left" class="ui-btn-right" ><img  src="back_image.png"></a>
+                <!--<h3>Report</h3>-->
             </div>
             <div data-role="content">
 				<div id="reporterror" style="color:#C00"></div>
@@ -175,11 +178,15 @@
 		<div data-theme="c" data-role="page" id="noticeBoard">
             <div data-theme="c" data-role="header" data-position="fixed" style="height:50px">
             <a  style="background-color:#F8F8F8; height:25px; width:145px" data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext" onClick="check_auth();"><img  src="logo.png"> </a>
-            <a style="background-color:#F8F8F8; height:25px; width:50px"data-role="button" data-rel="back"   data-iconpos="left" class="ui-btn-right" onClick="check_auth();"><img  src="back_image.png"></a>
-                <h3>Notice Board</h3>
+            <a style="background-color:#F8F8F8; height:25px; width:50px"data-role="button" data-rel="back"   data-iconpos="left" class="ui-btn-right" ><img  src="back_image.png"></a>
+               <!-- <h3>Notice Board</h3>-->
             </div>
             <div data-role="content">
 				<div id="myerror" style="color:#C00"></div>
+				<ul data-role="listview" data-divider-theme="c" data-inset="true">
+                    <li data-role="list-divider" role="heading" >Notice Board</li>
+			   </ul>
+			   
                 <div data-role="fieldcontain">
 					<div id="notice" style="background-color:#F4EAEA;  width:100%; height:200px; border-radius:10px;"></div>
 					<div id="notice_error"></div>
@@ -192,21 +199,21 @@
 		<div data-theme="c" data-role="page" id="pageSync">
             <div data-theme="c" data-role="header" data-position="fixed" style="height:50px">
              <a  style="background-color:#F8F8F8; height:25px; width:145px" data-role="button"  class="ui-btn-left ui-btn-icon-notext" onClick="check_auth();"><img  src="logo.png"> </a>
-             <a style="background-color:#F8F8F8; height:25px; width:50px"data-role="button" data-rel="back"   data-iconpos="left" class="ui-btn-right" onClick="check_auth();"><img  src="back_image.png"></a>
-                <h3>Authorization</h3>
+             <a style="background-color:#F8F8F8; height:25px; width:50px"data-role="button" data-rel="back"   data-iconpos="left" class="ui-btn-right" ><img  src="back_image.png"></a>
+                <!--<h3>Authorization</h3>-->
             </div>
             <div data-role="content">
             	<div id="mySyncError" style="color:#033; font-size:9px"></div>
 				<ul data-role="listview" data-divider-theme="c" data-inset="true">
                     <li data-role="list-divider" role="heading">Authorization</li>
 				</ul>
-				<form>
+				<!--<form>-->
 				<!--<input name="cid" id="cid"  type="text" placeholder="CID" value="DELTA" disabled="disabled">-->
 				<input name="cid" id="cid"  type="text" placeholder="CID" value="OKAPIA" disabled="disabled">	
 				<input name="repid" id="repid"  value="" type="text" placeholder="User ID"  >	
 				<input type="password" name="" id="password"  value="" placeholder="Password">	
 				<input type="submit" id="basicSync" name="basicSync" value="Submit" >
-				</form>
+				<!--</form>-->
                 <br>
                 <ul data-role="listview" data-divider-theme="c" data-inset="true">
                     <li data-role="list-divider" role="heading">Clear Authorization</li>
@@ -225,8 +232,8 @@
 		<div data-theme="c" data-role="page" id="pageSyncRoute">
             <div data-theme="c" data-role="header" data-position="fixed" style="height:50px">
 				<a  style="background-color:#F8F8F8; height:25px; width:145px" data-role="button"  class="ui-btn-left ui-btn-icon-notext" onClick="check_auth();"><img  src="logo.png"> </a>
-            	<a style="background-color:#F8F8F8; height:25px; width:50px"data-role="button" data-rel="back"   data-iconpos="left" class="ui-btn-right" onClick="check_auth();"><img  src="back_image.png"></a>
-                <h3>Route</h3>
+            	<a style="background-color:#F8F8F8; height:25px; width:50px"data-role="button" data-rel="back"   data-iconpos="left" class="ui-btn-right" ><img  src="back_image.png"></a>
+               <!-- <h3>Route</h3>-->
             </div>
             <div data-role="content">
             	<div id="mySyncError_route" style="color:#033; font-size:9px"></div>
@@ -358,12 +365,16 @@
             <div data-theme="c" data-role="header" data-position="fixed" style="height:50px">
 
 				<a  style="background-color:#F8F8F8; height:25px; width:145px" data-role="button"  class="ui-btn-left ui-btn-icon-notext" onClick="check_auth();"><img  src="logo.png"> </a>
-            	<a style="background-color:#F8F8F8; height:25px; width:50px"data-role="button" data-rel="back"   data-iconpos="left" class="ui-btn-right" onClick="check_auth();"><img  src="back_image.png"></a>
-                <h3>Select Outlet</h3>
+            	<a style="background-color:#F8F8F8; height:25px; width:50px"data-role="button" data-rel="back"   data-iconpos="left" class="ui-btn-right" ><img  src="back_image.png"></a>
+                <!--<h3>Select Outlet</h3>-->
             </div>
 			<div data-role="content">	
 
 			<div id="mySyncError_client"></div>
+			
+			<ul data-role="listview" data-divider-theme="c" data-inset="true">
+                    <li data-role="list-divider" role="heading" >Select Outlet</li>
+			</ul>
 
             		<div id="clientErrMsg" style="color:#FF0000;"></div>
                     <div id="clientList" style="display:none"> </div>		
@@ -453,9 +464,9 @@
 		<div data-theme="c" data-role="page" id="pageDeliveryIM">
 				<div data-theme="c" data-role="header" data-position="fixed" style="height:50px">
 					<a  style="background-color:#F8F8F8; height:25px; width:145px" data-role="button" class="ui-btn-left ui-btn-icon-notext" onClick="check_auth();"><img  src="logo.png"> </a>
-            		<a style="background-color:#F8F8F8; height:25px; width:50px"data-role="button" data-rel="back"   data-iconpos="left" class="ui-btn-right" onClick="check_auth();"><img  src="back_image.png"></a>
+            		<a style="background-color:#F8F8F8; height:25px; width:50px"data-role="button" data-rel="back"   data-iconpos="left" class="ui-btn-right" ><img  src="back_image.png"></a>
 					
-					<h3>Delivery</h3> <!--for okapia-->
+					<!--<h3>Delivery</h3>--> <!--for okapia-->
 				</div>
 				<div data-role="content">
                     <div id="clientDiv_IM"></div>
@@ -469,6 +480,7 @@
                   </tr>
                 </table>
 					</div>
+					</br></br></br>
                     <a id="cnf_button_IM"  data-role="button" data-transition="slide" onClick="confirmDeliveryIM()">Confirm</a>
                     
                     <a id="sub_button_IM" style="display:none"  data-role="button" data-transition="slide" onClick="submitDeliveryIM()" >Submit</a>
@@ -566,12 +578,12 @@
 	<!-- =================item list end====================-->					
 		    	</div>
 
-				<table width="100%" border="0" cellpadding="0" cellpadding="0">
+				<table  width="100%" border="0" cellpadding="0" cellpadding="0">
                   <tr>
                    <td width="2%"></td>
                     <td><div  id="erro_IM" style=" color:#95004A"></div></td>
                   </tr>
-                </table>
+                </table >
 	
 
 
@@ -605,9 +617,14 @@
             <div data-theme="c" data-role="header" style="height:50px">
 
                 <a  style="background-color:#F8F8F8; height:25px; width:145px" data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext" onClick="check_auth();go_home();"><img  src="logo.png"> </a>
-                <h3>Success</h3>
+				<a style="background-color:#F8F8F8; height:25px; width:50px"data-role="button" data-rel="back"   data-iconpos="left" class="ui-btn-right" ><img  src="back_image.png"></a>
+				
+                <!--<h3>Success</h3>-->
             </div>
 	      <div data-role="content" >
+		      <ul data-role="listview" data-divider-theme="c" data-inset="true">
+                    <li data-role="list-divider" role="heading" >Success</li>
+			   </ul>
 				<div id="successVno" style="color:#95004A"> </div>
 		  		<!--Submitted Successfully.-->
                 <div id="successVno" ></div>
