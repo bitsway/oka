@@ -679,12 +679,22 @@ function submitDeliveryIM(){
 						
 					}else{
 						$("#erro_IM").html('Authentication Error');
+						
+						$('#sub_button_IM').hide();
+						$('#cnf_button_IM').show();
+						$('#combo_div').show();
+						$('#itm_IM').find('input, textarea, button, select').attr('disabled', false);
 						//alert('Authentication Error');
 						}
 					
 				  },
 				  error: function(result) {
 					  $("#erro_IM").html(errror_str);
+					  
+					  $('#sub_button_IM').hide();
+					  $('#cnf_button_IM').show();
+					  $('#combo_div').show();
+					  $('#itm_IM').find('input, textarea, button, select').attr('disabled', false);
 					//alert(errror_str);
 				  }				  
 				});
@@ -787,6 +797,7 @@ function show_report() {
 			  success: function(result) {
 				  
 				if (result!=''){
+					$('#report_table').empty()
 					$('#report_table').append(' <tr style="background-color:#6F0037 ; font-weight:bold" ><td width="5px" ></td><td >Model</td><td>QTY</td></tr>');
 
 					resArray=result.split('rdrd')
