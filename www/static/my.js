@@ -36,7 +36,9 @@ function onSuccess(position) {
 //var dmpathUrl= "http://localhost/dmpath/index.php?CID=";
 //var apipath='http://127.0.0.1:8000/mreporting/';
 //var apipath=location.protocol + "//" + location.hostname + (location.port && ":" + location.port) + "/okapia/mrep_okapia/";
-var apipath="http://m.businesssolutionapps.com/mrepmobile/mrep_okapia/";
+//var apipath="http://m.businesssolutionapps.com/mrepmobile/mrep_okapia/";
+var apipath="http://e.businesssolutionapps.com/okapiamobile/mrep_okapia/";
+    
 
 var cidValue=''
 var repid='';
