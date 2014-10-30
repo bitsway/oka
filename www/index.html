@@ -80,7 +80,7 @@
 			
 			$("#mySyncError_route").text(localStorage.set_route_msg);	
 			
-			set_item_combo_IM();
+			//set_item_combo_IM();
 			
 			//refreshclientList();
 			clientList();
@@ -502,61 +502,7 @@
                     <a id="sub_button_IM" style="display:none"  data-role="button" data-transition="slide" onClick="submitDeliveryIM()" >Submit</a>
                     <div id="itemCountDiv_IM">	</div>
 
-<!-- =================item list start====================-->
-  	<script>
-	$.mobile.document
-    .on( "listviewcreate", "#itemID_add_IM-menu", function( e ) {
-        var input,
-            listbox = $( "#itemID_add_IM-listbox" ),
 
-            form = listbox.jqmData( "filter-form" ),
-
-            listview = $( e.target );
-
-        if ( !form ) {
-
-            input = $( "<input id='itemSearch_IM' data-type='search'></input>" );
-
-            form = $( "<form></form>" ).append( input );
-
-            input.textinput();
-
-            $( "#itemID_add_IM-listbox" )
-
-                .prepend( form )
-
-                .jqmData( "filter-form", form );
-
-        }
-        listview.filterable({ input: input });
-
-    })
-    .on( "pagebeforeshow pagehide", "#itemID_add_IM-dialog", function( e ) {
-
-	        var form = $( "#itemID_add_IM-listbox" ).jqmData( "filter-form" ),
-            placeInDialog = ( e.type === "pagebeforeshow" ),
-            destination = placeInDialog ? $( e.target ).find( ".ui-content" ) : $( "#itemID_add_IM-listbox" );
-
-        form
-            .find( "input" )
-            .textinput( "option", "inset", !placeInDialog )
-            .end()
-            .prependTo( destination );
-
-		//set focus
-		//$('#itemID_add').selectmenu('refresh',true);
-		var item_value=$("#itemID_add_IM").val();
-		
-		//$("#"+item_value).focus();
-		var myselect = $("#itemID_add_IM");
-		//alert (item_value);
-		//myselect[0].selectedIndex =0;
-		//$("#itemSearch").val('');
-		myselect.selectmenu("refresh", true);
-
-    });
-
-	</script>
 
 <style>
 .ui-selectmenu.ui-popup .ui-input-search {
@@ -612,15 +558,13 @@
                
 		   	<!--==========footer======-->	
 <div data-theme="c" data-role="footer" role="main"  data-position="fixed">
- <div id="combo_div">
- <div id="itemComboDiv_IM" style="float:left; margin-top:5px;">
- <select id="itemCombo_IM" width="90%" data-native-menu="false">
-	
- </select>
- 
- </div>
-	 <a style="width:20%"  data-role="button" data-transition="slide" onClick="addItemIM()"  data-iconpos="right" class="ui-btn-right" >Add</a>
+
+ <div id="combo_div" style="height:50px">
+
+
+	 <a style="width:20%"  data-role="button"  onClick="addItemIM()"  data-iconpos="right" class="ui-btn-right" >Add</a>
 	</div>
+   
   </div>   
 <!--==============footer end==============-->	
 </div>

@@ -37,7 +37,11 @@ function onSuccess(position) {
 //var apipath='http://127.0.0.1:8000/mreporting/';
 //var apipath=location.protocol + "//" + location.hostname + (location.port && ":" + location.port) + "/okapia/mrep_okapia/";
 //var apipath="http://m.businesssolutionapps.com/mrepmobile/mrep_okapia/";
-var apipath="http://e.businesssolutionapps.com/okapiamobile/mrep_okapia/";
+//var apipath="http://e.businesssolutionapps.com/okapiamobile/mrep_okapia/";
+
+
+//var apipath=location.protocol + "//" + location.hostname + (location.port && ":" + location.port) + "/okapia/mrep_okapia_without_item/";
+var apipath="http://e.businesssolutionapps.com/okapiamobile/mrep_okapia_without_item/";
     
 
 var cidValue=''
@@ -153,7 +157,7 @@ $('#basicSync').click(function() {
 							
 							//var url = "#pageSync";
 							//$.mobile.navigate(url);
-							$("#mySyncError").html("Authorization and basic data synchronized. Please Sync Route.");
+						//	$("#mySyncError").html("Authorization and basic data synchronized. Please Sync Route.");
 							
 							$("#syncButton").show();
 							//$(location).attr('href',url);
@@ -498,28 +502,7 @@ function set_route_combo() {
 
 
 
-function set_item_combo_IM() {
-	// alert (localStorage.itemCombo.length);
-	var itemArray=localStorage.itemCombo.split('rtrt')	;
-	var ob = $("#itemCombo_IM");
-	// alert ('nadira')
-	$('#itemCombo_IM').empty()
-	
-	var value="";
-	var text="";
-	// ob.prepend("<option value="+ blank +">" + text + "</option>");
-	for (var i=0; i<itemArray.length-1; i++){
-		var itemIdNameArray = itemArray[i].split('-');
-		var item_id=itemIdNameArray[0]
-		var item_name=itemIdNameArray[1]
-		ob.append("<option value="+ item_id +">" + item_name +"(" +item_id +")" + "</option>");
-		// "<option value='"+ item_id +"'>" + item_name +"(" +item_id +")" + "</option>");
-		}			
-	// ob.prepend("<option value="+ blank +">" + text + "</option>");						
-	// var url = "#pageOrder";      
-	// $(location).attr('href',url);
-			
-}
+
 
 
 //==============client sync================
@@ -537,27 +520,12 @@ function set_submit_type_del_im() {
 
 //====================Delivery IM Item add Start==========
 function addItemIM(){
-	var item_value=$("#itemID_add_IM").val();
-	var itemArray = item_value.split('#');
-	//alert (itemArray[0]);
-	//$("#title_table").show();
+	im_number= im_number+1;
+	localStorage.im_number=im_number;
 	
-	itemID=itemArray[1];
-	itemName=itemArray[0];
-	//alert (itemID)
-	if ((itemID != 0) && (itemID != undefined) && (itemID != 'undefined')){
-		im_number= im_number+1;
-		
-		localStorage.im_number=im_number;
-		//alert (localStorage.im_number);
-		$('#item_table').append('<tr id="'+im_number.toString()+'_row" style="height:35px;  font-size:24px"><td style="color:#95004A">'+itemName+
-		'<input name="'+im_number.toString()+'_IMID" id="'+im_number.toString()+'_IMID"  value="'+itemID+'" type="hidden">'+
-		'<input name="'+im_number.toString()+'_item_name" id="'+im_number.toString()+'_item_name"  value="'+itemName+'" type="hidden">'+		
+	$('#item_table').append('<tr id="'+im_number.toString()+'_row" style="height:35px;  font-size:24px"><td style="color:#95004A">IMEI Number '+
 		'</td><td> <input style="height:30px; width:90%;background-color:#F4F4F4; color:#95004A; font-size:15px; font-weight:bold;border:thin; border-radius:5%;" name="'+im_number.toString()+'_IM" id="'+im_number.toString()+'_IM" placeholder="" value="" type="number"></td><td><input style="background-color:#F4F4F4; color:#95004A; border:thin; border-radius:5%" name="'+im_number.toString()+'_IM_del" id="'+im_number.toString()+'_IM_del" type="button" onClick="deleteItem('+im_number+')" value="   X   "></td> </tr>');
-	}
-	
-	
-	
+
 }
 
 function deleteItem(im_number){
@@ -565,18 +533,18 @@ function deleteItem(im_number){
 }
 
 function confirmDeliveryIM(){
-	
-	
 	var delivery_submit_string ="";
 	//alert (localStorage.im_number);
 	var ime_error=0;
+	
 	for (var i=1; i < im_number+1; i++){
-		var item_id=$("#"+i.toString()+"_IMID").val();
-		var item_name=$("#"+i.toString()+"_item_name").val();
+		//var item_id=$("#"+i.toString()+"_IMID").val();
+//		var item_name=$("#"+i.toString()+"_item_name").val();
 		var item_IM=$("#"+i.toString()+"_IM").val();
+		//alert (item_IM);
 		
-		
-		if ((item_id != undefined) && (item_id != "")){
+		if ((item_IM != undefined) && (item_IM != "")){
+			
 			if ((item_IM.length < parseInt(localStorage.ime_min)) || (item_IM.length > parseInt(localStorage.ime_max)) || (delivery_submit_string.indexOf(item_IM) != -1)){
 				ime_error=1;
 				$("#"+i.toString()+"_row").css({ 'background-color' : '#FDE'});
@@ -586,8 +554,9 @@ function confirmDeliveryIM(){
 				$("#"+i.toString()+"_row").css({ 'background-color' : 'transparent'});
 			}
 			//alert ('nadira');
-			if ((item_id != undefined) && (item_IM != undefined) & (item_id != "") && (ime_error != 1)) {
-				delivery_submit_string=delivery_submit_string+item_id+'fdfd'+item_name+'fdfd'+item_IM+'rdrd'
+			if (ime_error != 1) {
+				delivery_submit_string=delivery_submit_string+item_IM+'rdrd'
+				//delivery_submit_string=delivery_submit_string+item_id+'fdfd'+item_name+'fdfd'+item_IM+'rdrd'
 			}
 		}
 	}
@@ -649,7 +618,7 @@ function submitDeliveryIM(){
 				  type: 'POST',
 				  url: apipath+'getSubmitResultDel_IM?cid='+localStorage.cid+'&repid='+localStorage.userid+'&password='+localStorage.password+'&synccode='+localStorage.synccode+'&routeid='+localStorage.routeId+'&mLatitude='+latitude+'&mLongitude='+longitude+'&client='+clientID_IM+'&data='+submit_string_IM,
 				  success: function(result) {
-					  
+					//alert (result);  
 					if (result!='NO'){
 						resArray=result.split('#')
 						//alert (result)
