@@ -523,7 +523,7 @@ function addItemIM(){
 	im_number= im_number+1;
 	localStorage.im_number=im_number;
 	
-	$('#item_table').append('<tr id="'+im_number.toString()+'_row" style="height:35px;  font-size:24px"><td style="color:#95004A">IMEI Number '+
+	$('#item_table').append('<tr id="'+im_number.toString()+'_row" style="height:35px;  font-size:24px"><td style="color:#95004A">IMEI'+
 		'</td><td> <input style="height:30px; width:90%;background-color:#F4F4F4; color:#95004A; font-size:15px; font-weight:bold;border:thin; border-radius:5%;" name="'+im_number.toString()+'_IM" id="'+im_number.toString()+'_IM" placeholder="" value="" type="number"></td><td><input style="background-color:#F4F4F4; color:#95004A; border:thin; border-radius:5%" name="'+im_number.toString()+'_IM_del" id="'+im_number.toString()+'_IM_del" type="button" onClick="deleteItem('+im_number+')" value="   X   "></td> </tr>');
 
 }
