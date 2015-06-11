@@ -579,7 +579,7 @@ function confirmDeliveryIM(){
 		
 		$("#erro_IM").html ('' );
 		
-		getLatLong();
+		//getLatLong();
 	}
 }
 
@@ -595,18 +595,18 @@ function submitDeliveryIM(){
 		//var longitude='1354646';
 		
 		//alert (latitude);
-		if ((latitude=='') || (longitude=='')){
-			
-			$("#erro_IM").html("Location can not be confirmed. Please check you have the GPS and AGPS on.");
-			$("#erro_IM").show();			
-						
-			$('#sub_button_IM').hide();
-			$('#cnf_button_IM').show();
-			$('#combo_div').show();
-			$('#itm_IM').find('input, textarea, button, select').attr('disabled', false);
-		}
-		
-		else{
+		//if ((latitude=='') || (longitude=='')){
+//			
+//			$("#erro_IM").html("Location can not be confirmed. Please check you have the GPS and AGPS on.");
+//			$("#erro_IM").show();			
+//						
+//			$('#sub_button_IM').hide();
+//			$('#cnf_button_IM').show();
+//			$('#combo_div').show();
+//			$('#itm_IM').find('input, textarea, button, select').attr('disabled', false);
+//		}
+//		
+//		else{
 			//$('#sub_button_IM').hide();
 			//alert ('nadira');
 			//$("#erro_IM").html (apipath+'getSubmitResultDel_IM?cid='+localStorage.cid+'&repid='+localStorage.userid+'&password='+localStorage.password+'&synccode='+localStorage.synccode+'&routeid='+localStorage.routeId+'&mLatitude='+latitude+'&mLongitude='+longitude+'&client='+clientID_IM+'&data='+submit_string_IM);
@@ -669,7 +669,7 @@ function submitDeliveryIM(){
 					//alert(errror_str);
 				  }				  
 				});
-			}//end else
+			//}//end else
 		} // end if submit string
 		else{	
 			$("#erro_IM").html(errror_str);
